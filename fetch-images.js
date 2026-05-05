@@ -1,65 +1,58 @@
 #!/usr/bin/env node
-/**
- * PixelWeirdo — Unsplash Image Fetcher
- * Downloads hero images for all game posts and saves them to images/posts/
- * Run: node fetch-images.js
- */
 
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const UNSPLASH_KEY = process.env.UNSPLASH_ACCESS_KEY || 'd06e76cc942e40958bc345653ec45dee';
+const RAWG_KEY = process.env.RAWG_API_KEY || 'd06e76cc942e40958bc345653ec45dee';
 const OUTPUT_DIR = path.join(__dirname, 'images', 'posts');
 
-// Map each post slug → best Unsplash search query
-// Using atmospheric/thematic queries since Unsplash doesn't have game screenshots
 const GAMES = [
-  { slug: 'hollow-knight',          query: 'dark fantasy underground cave insect' },
-  { slug: 'celeste',                query: 'mountain climbing snow peak adventure' },
-  { slug: 'journey',                query: 'desert dunes sand golden sunset landscape' },
-  { slug: 'outer-wilds',            query: 'space exploration stars nebula cosmos' },
-  { slug: 'firewatch',              query: 'forest fire lookout tower wilderness sunset' },
-  { slug: 'spiritfarer',            query: 'boat ocean sea sunset peaceful water' },
-  { slug: 'disco-elysium',          query: 'rainy city street neon detective noir' },
-  { slug: 'night-in-the-woods',     query: 'autumn small town forest fog moody night' },
-  { slug: 'frostpunk',              query: 'frozen winter blizzard industrial city snow' },
-  { slug: 'papers-please',          query: 'border checkpoint passport stamp bureaucracy' },
-  { slug: 'stanley-parable',        query: 'office corridor empty hallway surreal' },
-  { slug: 'inside',                 query: 'dark silhouette child running dystopian' },
-  { slug: 'unpacking',              query: 'moving boxes room cozy home apartment' },
-  { slug: 'animal-crossing',        query: 'tropical island beach summer sunny peaceful' },
-  { slug: 'katamari-damacy',        query: 'colorful objects rainbow chaos playful' },
-  { slug: 'stardew-valley',         query: 'farm garden countryside vegetables green field' },
-  { slug: 'minecraft',              query: 'blocky landscape sunrise mountains creative building' },
-  { slug: 'breath-of-the-wild',     query: 'open world cliffside green landscape adventure' },
-  { slug: 'portal-2',               query: 'laboratory sci-fi white room futuristic clean' },
-  { slug: 'red-dead-redemption-2',  query: 'western cowboy horses prairie mountain sunset' },
-  { slug: 'dark-souls',             query: 'dark medieval castle ruins sword warrior' },
-  { slug: 'hades',                  query: 'underground cave lava fire mythology greek' },
-  { slug: 'undertale',              query: 'underground flowers cave cozy colorful heart' },
-  { slug: 'among-us',               query: 'space station spaceship crew teamwork' },
-  { slug: 'it-takes-two',           query: 'couple teamwork miniature toy small world' },
-  { slug: 'moving-out',             query: 'moving furniture apartment boxes chaos fun' },
-  { slug: 'overcooked',             query: 'cooking kitchen restaurant chef chaos' },
-  { slug: 'last-of-us',             query: 'post-apocalyptic overgrown urban nature reclaiming' },
-  { slug: 'the-sims',               query: 'suburban house neighborhood home life family' },
-  { slug: 'fallout-3',              query: 'wasteland ruins abandoned city post-apocalyptic' },
-  { slug: 'amnesia',                query: 'dark castle horror corridor stone medieval' },
-  { slug: 'pokemon',                query: 'colorful creatures forest nature adventure' },
-  { slug: 'princess-peach',         query: 'pink castle fantasy kingdom magical palace' },
-  { slug: 'knack',                   query: 'ancient ruins golden artifacts glowing mystery' },
-  { slug: 'world-of-warcraft',      query: 'epic fantasy dragon battle mountains sky' },
-  { slug: 'skyrim',                 query: 'snowy mountain dragon nordic landscape epic' },
-  { slug: 'crash-bandicoot',        query: 'jungle tropical temple ancient ruins vibrant' },
-  { slug: 'rocket-league',          query: 'arena stadium neon lights sports car racing' },
-  { slug: 'edith-finch',            query: 'old house quirky family home memory nostalgia' },
-  { slug: 'tetris',                 query: 'colorful blocks puzzle geometric pattern' },
+  { slug: 'hollow-knight',         search: 'Hollow Knight' },
+  { slug: 'celeste',               search: 'Celeste' },
+  { slug: 'journey',               search: 'Journey 2012' },
+  { slug: 'outer-wilds',           search: 'Outer Wilds' },
+  { slug: 'firewatch',             search: 'Firewatch' },
+  { slug: 'spiritfarer',           search: 'Spiritfarer' },
+  { slug: 'disco-elysium',         search: 'Disco Elysium' },
+  { slug: 'night-in-the-woods',    search: 'Night in the Woods' },
+  { slug: 'frostpunk',             search: 'Frostpunk' },
+  { slug: 'papers-please',         search: 'Papers Please' },
+  { slug: 'stanley-parable',       search: 'The Stanley Parable' },
+  { slug: 'inside',                search: 'Inside Playdead' },
+  { slug: 'unpacking',             search: 'Unpacking 2021' },
+  { slug: 'animal-crossing',       search: 'Animal Crossing New Horizons' },
+  { slug: 'katamari-damacy',       search: 'Katamari Damacy' },
+  { slug: 'stardew-valley',        search: 'Stardew Valley' },
+  { slug: 'minecraft',             search: 'Minecraft' },
+  { slug: 'breath-of-the-wild',    search: 'The Legend of Zelda Breath of the Wild' },
+  { slug: 'portal-2',              search: 'Portal 2' },
+  { slug: 'red-dead-redemption-2', search: 'Red Dead Redemption 2' },
+  { slug: 'dark-souls',            search: 'Dark Souls III' },
+  { slug: 'hades',                 search: 'Hades 2020' },
+  { slug: 'undertale',             search: 'Undertale' },
+  { slug: 'among-us',              search: 'Among Us' },
+  { slug: 'it-takes-two',          search: 'It Takes Two' },
+  { slug: 'moving-out',            search: 'Moving Out 2020' },
+  { slug: 'overcooked',            search: 'Overcooked 2' },
+  { slug: 'last-of-us',            search: 'The Last of Us Part I' },
+  { slug: 'the-sims',              search: 'The Sims 4' },
+  { slug: 'fallout-3',             search: 'Fallout 3' },
+  { slug: 'amnesia',               search: 'Amnesia The Dark Descent' },
+  { slug: 'pokemon',               search: 'Pokemon Red' },
+  { slug: 'princess-peach',        search: 'Princess Peach Showtime' },
+  { slug: 'knack',                 search: 'Knack 2013' },
+  { slug: 'world-of-warcraft',     search: 'World of Warcraft' },
+  { slug: 'skyrim',                search: 'The Elder Scrolls V Skyrim' },
+  { slug: 'crash-bandicoot',       search: 'Crash Bandicoot N Sane Trilogy' },
+  { slug: 'rocket-league',         search: 'Rocket League' },
+  { slug: 'edith-finch',           search: 'What Remains of Edith Finch' },
+  { slug: 'tetris',                search: 'Tetris Effect' },
 ];
 
-function fetchJSON(url, headers) {
+function fetchJSON(url) {
   return new Promise((resolve, reject) => {
-    const req = https.get(url, { headers }, (res) => {
+    const req = https.get(url, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
@@ -68,47 +61,51 @@ function fetchJSON(url, headers) {
       });
     });
     req.on('error', reject);
-    req.setTimeout(15000, () => { req.destroy(); reject(new Error('timeout')); });
+    req.setTimeout(20000, () => { req.destroy(); reject(new Error('timeout')); });
   });
 }
 
 function downloadFile(url, destPath) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(destPath);
-    https.get(url, (res) => {
-      if (res.statusCode === 301 || res.statusCode === 302) {
-        file.close();
-        fs.unlinkSync(destPath);
-        return downloadFile(res.headers.location, destPath).then(resolve).catch(reject);
-      }
-      res.pipe(file);
-      file.on('finish', () => file.close(resolve));
-      file.on('error', (err) => { fs.unlinkSync(destPath); reject(err); });
-    }).on('error', (err) => { fs.unlinkSync(destPath); reject(err); });
+    const get = (u) => {
+      https.get(u, (res) => {
+        if (res.statusCode === 301 || res.statusCode === 302) {
+          file.close();
+          return get(res.headers.location);
+        }
+        if (res.statusCode !== 200) {
+          file.close();
+          fs.unlink(destPath, () => {});
+          return reject(new Error(`HTTP ${res.statusCode}`));
+        }
+        res.pipe(file);
+        file.on('finish', () => file.close(resolve));
+        file.on('error', (err) => { fs.unlink(destPath, () => {}); reject(err); });
+      }).on('error', (err) => { fs.unlink(destPath, () => {}); reject(err); });
+    };
+    get(url);
   });
 }
 
-async function fetchImageForGame(game) {
-  const url = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(game.query)}&per_page=1&orientation=landscape&content_filter=high`;
-  const headers = {
-    'Authorization': `Client-ID ${UNSPLASH_KEY}`,
-    'Accept-Version': 'v1'
-  };
-
+async function fetchGameImage(game) {
+  const url = `https://api.rawg.io/api/games?key=${RAWG_KEY}&search=${encodeURIComponent(game.search)}&page_size=3&search_precise=true`;
   try {
-    const data = await fetchJSON(url, headers);
+    const data = await fetchJSON(url);
     if (!data.results || data.results.length === 0) {
       console.log(`  ⚠️  No results for ${game.slug}`);
       return null;
     }
-    const photo = data.results[0];
-    // Use regular size (1080px wide) — good quality, not too heavy
-    const imageUrl = photo.urls.regular;
+    let best = data.results.find(r => r.background_image) || data.results[0];
+    if (!best.background_image) {
+      console.log(`  ⚠️  No image for ${game.slug}`);
+      return null;
+    }
     const destPath = path.join(OUTPUT_DIR, `${game.slug}.jpg`);
-    await downloadFile(imageUrl, destPath);
-    const stats = fs.statSync(destPath);
-    console.log(`  ✅ ${game.slug} (${Math.round(stats.size/1024)}KB) — by ${photo.user.name}`);
-    return { slug: game.slug, photographer: photo.user.name, photographerUrl: photo.user.links.html };
+    await downloadFile(best.background_image, destPath);
+    const kb = Math.round(fs.statSync(destPath).size / 1024);
+    console.log(`  ✅ ${game.slug}.jpg (${kb}KB) — ${best.name}`);
+    return { slug: game.slug, gameName: best.name, rawgId: best.id };
   } catch (err) {
     console.log(`  ❌ ${game.slug}: ${err.message}`);
     return null;
@@ -116,25 +113,17 @@ async function fetchImageForGame(game) {
 }
 
 async function main() {
-  console.log('🎮 PixelWeirdo — Fetching Unsplash images for all game posts\n');
+  console.log('🎮 PixelWeirdo — Fetching game covers from RAWG\n');
   if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-
   const credits = [];
-  // Process in batches of 5 to be polite to the API
-  for (let i = 0; i < GAMES.length; i += 5) {
-    const batch = GAMES.slice(i, i + 5);
-    const results = await Promise.all(batch.map(fetchImageForGame));
+  for (let i = 0; i < GAMES.length; i += 4) {
+    const batch = GAMES.slice(i, i + 4);
+    const results = await Promise.all(batch.map(fetchGameImage));
     results.forEach(r => { if (r) credits.push(r); });
-    // Small delay between batches
-    if (i + 5 < GAMES.length) await new Promise(r => setTimeout(r, 500));
+    if (i + 4 < GAMES.length) await new Promise(r => setTimeout(r, 300));
   }
-
-  // Write credits file
-  const creditsPath = path.join(OUTPUT_DIR, 'credits.json');
-  fs.writeFileSync(creditsPath, JSON.stringify(credits, null, 2));
-
-  console.log(`\n✨ Done! ${credits.length}/${GAMES.length} images downloaded`);
-  console.log(`📄 Credits saved to ${creditsPath}`);
+  fs.writeFileSync(path.join(OUTPUT_DIR, 'credits.json'), JSON.stringify(credits, null, 2));
+  console.log(`\n✨ Done! ${credits.length}/${GAMES.length} game covers downloaded`);
 }
 
 main().catch(console.error);
