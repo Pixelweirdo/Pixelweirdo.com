@@ -27,13 +27,23 @@
   <script src="js/main.js"></script>
   <style>
     body.game-page { background:#0a0812; }
-    .game-hero { background:#0a0812; padding:40px 32px 24px; text-align:center; border-bottom:1px solid rgba(124,77,190,0.2); }
+    .game-hero { background:#0a0812; padding:16px 32px 12px; text-align:center; border-bottom:1px solid rgba(124,77,190,0.2); }
     .game-hero-eyebrow { font-family:var(--font-px); font-size:0.35rem; color:var(--accent); letter-spacing:2px; margin-bottom:10px; }
     .game-hero-title   { font-family:var(--font-px); font-size:clamp(0.65rem,2.5vw,1rem); color:#fff; line-height:1.8; margin-bottom:8px; }
     .game-hero-sub     { font-size:0.85rem; color:rgba(255,255,255,0.45); }
-    .game-wrapper { display:flex; gap:24px; max-width:1100px; margin:0 auto; padding:28px 24px 48px; align-items:flex-start; }
+    .game-wrapper { display:flex; gap:24px; max-width:1100px; margin:0 auto; padding:16px 24px 24px; align-items:flex-start; }
     .canvas-wrap { position:relative; flex-shrink:0; }
-    #gameCanvas { display:block; border:2px solid rgba(124,77,190,0.4); box-shadow:0 0 40px rgba(124,77,190,0.15); image-rendering:pixelated; touch-action:none; }
+    .canvas-wrap { display:flex; flex-direction:column; align-items:center; }
+    #gameCanvas {
+      display:block;
+      border:2px solid rgba(124,77,190,0.4);
+      box-shadow:0 0 40px rgba(124,77,190,0.15);
+      image-rendering:pixelated;
+      touch-action:none;
+      max-height: calc(100vh - 160px);
+      max-width: 100%;
+      object-fit: contain;
+    }
     .mobile-controls { display:none; gap:12px; margin-top:14px; justify-content:center; }
     .ctrl-btn { width:72px; height:72px; background:rgba(124,77,190,0.15); border:2px solid rgba(124,77,190,0.4); color:#fff; font-size:1.6rem; cursor:pointer; display:flex; align-items:center; justify-content:center; user-select:none; -webkit-tap-highlight-color:transparent; transition:background 0.1s; }
     .ctrl-btn:active { background:rgba(124,77,190,0.4); }
@@ -308,6 +318,7 @@ var highScore     = gs('hi',0);
 var cv            = document.getElementById('gameCanvas');
 var ctx           = cv.getContext('2d');
 function px(s){ return s+'px "Press Start 2P",monospace'; }
+
 var activeSkin = (function(){ try{ var r=localStorage.getItem('pwg_skin'); return r!==null?JSON.parse(r):'default'; }catch(e){return 'default';} }());
 var STATE='idle', score=0, scrollY=0, bobTime=0;
 var platforms=[], pagePickups=[], particles=[], player={};
@@ -2141,6 +2152,7 @@ var SKINS = [
   { id:'inspector',     name:'The Inspector',      unlockId:'papers-please',      desc:'Papers, Please' },
 ];
 
+
 var IS_PAUSED    = false;
 var isSpeedRun   = false;
 var srTimer      = 0;       // seconds elapsed
@@ -2148,6 +2160,7 @@ var srRunning    = false;   // timer active
 var srBests      = gs('srbests', {});  // personal bests per level id
 
 var quoteShownThisLevel = false;
+var quoteFreezeTimer = 0;
 var bossPlatform = null;    // the final boss platform object
 var bossSpawned  = false;
 
@@ -2331,6 +2344,18 @@ document.addEventListener('keydown',function(e){ if(e.code==='Escape'&&(STATE===
 }());
 document.getElementById('ui-hi').textContent=highScore;
 document.getElementById('ui-cleared').textContent=Object.keys(achievements).length;
+
+// Scale canvas to fit screen height while keeping aspect ratio
+function scaleCanvas(){
+  var maxH = window.innerHeight - 160;
+  var maxW = window.innerWidth * 0.45;
+  var scale = Math.min(maxH / CH, maxW / CW, 1);
+  cv.style.width  = Math.floor(CW * scale) + 'px';
+  cv.style.height = Math.floor(CH * scale) + 'px';
+}
+scaleCanvas();
+window.addEventListener('resize', scaleCanvas);
+
 requestAnimationFrame(loop);
 
 // Auto-start from URL param ?level=N (0-based)
