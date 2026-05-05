@@ -1,5 +1,9 @@
 [build]
   publish = "."
+  command = "node fetch-images.js && node inject-images.js"
+
+[build.environment]
+  UNSPLASH_ACCESS_KEY = "d06e76cc942e40958bc345653ec45dee"
 
 [[redirects]]
   from = "/blog"
