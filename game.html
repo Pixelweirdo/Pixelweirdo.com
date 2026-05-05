@@ -93,7 +93,6 @@
   </style>
 </head>
 <body class="game-page">
-<script src="js/header.js"></script>
 
 <div class="game-hero">
   <div class="game-hero-eyebrow">MINI GAME</div>
@@ -203,7 +202,6 @@
   </div>
 </div>
 
-<script src="js/footer.js"></script>
 <script>
 // ═══════════════════════════════════════════════════════════
 // PIXEL JUMPER — PixelWeirdo
@@ -310,7 +308,7 @@ var highScore     = gs('hi',0);
 var cv            = document.getElementById('gameCanvas');
 var ctx           = cv.getContext('2d');
 function px(s){ return s+'px "Press Start 2P",monospace'; }
-
+var activeSkin = (function(){ try{ var r=localStorage.getItem('pwg_skin'); return r!==null?JSON.parse(r):'default'; }catch(e){return 'default';} }());
 var STATE='idle', score=0, scrollY=0, bobTime=0;
 var platforms=[], pagePickups=[], particles=[], player={};
 var pagesCollected=0, currentLevelIdx=0;
@@ -2142,8 +2140,6 @@ var SKINS = [
   { id:'prince',        name:'The Prince',         unlockId:'katamari-damacy',    desc:'Katamari Damacy' },
   { id:'inspector',     name:'The Inspector',      unlockId:'papers-please',      desc:'Papers, Please' },
 ];
-
-var activeSkin = gs('skin','default');
 
 var IS_PAUSED    = false;
 var isSpeedRun   = false;
