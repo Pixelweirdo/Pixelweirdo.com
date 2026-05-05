@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — PixelWeirdo</title>
+  <link rel="icon" href="images/logo.png" type="image/png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #faf8fc; --white: #fff; --ink: #1c1a24; --ink2: #4a4560; --ink3: #9990aa;
+      --border: #e2d9ee; --accent: #7c4dbe; --accent2: #f0922b; --danger: #e53935;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --font-px: 'Press Start 2P', monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1e1530; font-family: var(--font-sans); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+    /* ── Login ── */
+    #login-screen { width: 100%; max-width: 400px; padding: 32px; }
+    .login-box { background: var(--white); padding: 40px; border: 1px solid var(--border); }
+    .login-eyebrow { font-family: var(--font-px); font-size: 0.32rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 16px; }
+    .login-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--ink); margin-bottom: 24px; }
+    .login-input { width: 100%; border: 1px solid var(--border); padding: 12px 16px; font-family: var(--font-sans); font-size: 0.9rem; color: var(--ink); background: var(--cream); outline: none; margin-bottom: 12px; transition: border-color 0.2s; }
+    .login-input:focus { border-color: var(--accent); }
+    .login-btn { width: 100%; background: var(--accent); color: #fff; border: none; padding: 12px; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+    .login-btn:hover { background: #6a3da8; }
+    .login-error { color: var(--danger); font-size: 0.8rem; margin-top: 8px; display: none; }
+
+    /* ── Admin ── */
+    #admin-screen { display: none; width: 100%; min-height: 100vh; background: var(--cream); align-items: flex-start; justify-content: flex-start; }
+    .admin-header { background: #2d1a5e; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--accent); }
+    .admin-header-title { font-family: var(--font-px); font-size: 0.42rem; color: #fff; letter-spacing: 2px; }
+    .admin-header-sub { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+    .logout-btn { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.7); padding: 6px 14px; font-family: var(--font-sans); font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }
+    .logout-btn:hover { border-color: #fff; color: #fff; }
+    .admin-body { max-width: 900px; margin: 0 auto; padding: 40px 32px; width: 100%; }
+    .admin-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
+    .stat-card { background: var(--white); border: 1px solid var(--border); padding: 20px 24px; }
+    .stat-num { font-family: var(--font-serif); font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: 0.8rem; color: var(--ink3); margin-top: 4px; }
+    .post-section { margin-bottom: 32px; }
+    .post-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #2d1a5e; color: #fff; margin-bottom: 1px; }
+    .post-name { font-family: var(--font-px); font-size: 0.32rem; letter-spacing: 1px; }
+    .post-count { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+    .comment-row { background: var(--white); border: 1px solid var(--border); border-top: none; padding: 16px 20px; display: flex; gap: 16px; align-items: flex-start; }
+    .comment-row:last-child { border-bottom: 1px solid var(--border); }
+    .comment-meta { flex-shrink: 0; width: 160px; }
+    .comment-author { font-family: var(--font-px); font-size: 0.28rem; color: var(--accent); margin-bottom: 4px; word-break: break-all; }
+    .comment-date { font-size: 0.72rem; color: var(--ink3); }
+    .comment-text { flex: 1; font-size: 0.875rem; color: var(--ink2); line-height: 1.6; }
+    .delete-btn { flex-shrink: 0; background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 6px 12px; font-family: var(--font-sans); font-size: 0.75rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .delete-btn:hover { background: var(--danger); color: #fff; }
+    .no-comments { background: var(--white); border: 1px solid var(--border); border-top: none; padding: 16px 20px; color: var(--ink3); font-size: 0.85rem; font-style: italic; }
+    .loading { text-align: center; padding: 60px; color: var(--ink3); font-size: 0.9rem; }
+    .refresh-btn { background: var(--accent); color: #fff; border: none; padding: 10px 20px; font-family: var(--font-sans); font-size: 0.85rem; cursor: pointer; margin-bottom: 24px; transition: background 0.2s; }
+    .refresh-btn:hover { background: #6a3da8; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-eyebrow">DUNGEON BITS</div>
+    <div class="login-title">Admin Access</div>
+    <input type="password" id="pw-input" class="login-input" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">Enter →</button>
+    <div class="login-error" id="login-error">Incorrect password.</div>
+  </div>
+</div>
+
+<!-- ADMIN SCREEN -->
+<div id="admin-screen">
+  <div style="width:100%">
+    <div class="admin-header">
+      <div>
+        <div class="admin-header-title">DUNGEON BITS — ADMIN</div>
+        <div class="admin-header-sub">Comment moderation</div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">Log out</button>
+    </div>
+    <div class="admin-body">
+      <button class="refresh-btn" onclick="loadAll()">↻ Refresh</button>
+      <div class="admin-stats">
+        <div class="stat-card"><div class="stat-num" id="stat-total">—</div><div class="stat-label">Total comments</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-posts">—</div><div class="stat-label">Posts with comments</div></div>
+        <div class="stat-card"><div class="stat-num" id="stat-today">—</div><div class="stat-label">Comments today</div></div>
+      </div>
+      <div id="comments-container"><div class="loading">Loading comments…</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var PASSWORD = 'InsertPassword';
+
+var POST_IDS = [
+  { id: 'darksols',    label: 'Dark Souls III' },
+  { id: 'hades',       label: 'Hades' },
+  { id: 'stardew',     label: 'Stardew Valley' },
+  { id: 'moving',      label: 'Moving Out' },
+  { id: 'overcooked',  label: 'Overcooked 2' },
+  { id: 'peach',       label: 'Princess Peach' },
+  { id: 'wow',         label: 'World of Warcraft' },
+  { id: 'lastofus',    label: 'The Last of Us' },
+  { id: 'sims',        label: 'The Sims 3' },
+  { id: 'amnesia',     label: 'Amnesia' },
+  { id: 'crash',       label: 'Crash Bandicoot' },
+  { id: 'fallout',     label: 'Fallout 3' },
+  { id: 'pokemon',     label: 'Pokémon Red' },
+  { id: 'rocketleague',label: 'Rocket League' },
+  { id: 'skyrim',      label: 'Skyrim' },
+  { id: 'undertale',   label: 'Undertale' },
+];
+
+// ── Auth ─────────────────────────────────────────────────────
+function doLogin() {
+  var pw = document.getElementById('pw-input').value;
+  if (pw === PASSWORD) {
+    document.getElementById('login-screen').style.display = 'none';
+    var admin = document.getElementById('admin-screen');
+    admin.style.display = 'flex';
+    loadAll();
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+  }
+}
+
+function doLogout() {
+  document.getElementById('admin-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pw-input').value = '';
+}
+
+// ── Load all comments ─────────────────────────────────────────
+function loadAll() {
+  var container = document.getElementById('comments-container');
+  container.innerHTML = '<div class="loading">Loading comments…</div>';
+
+  var allData = [];
+  for (var i = 0; i < POST_IDS.length; i++) {
+    var post = POST_IDS[i];
+    var comments = loadComments(post.id);
+    allData.push({ post: post, comments: comments });
+  }
+
+  // Update stats
+  var total = allData.reduce(function(sum, d) { return sum + d.comments.length; }, 0);
+  var postsWithComments = allData.filter(function(d) { return d.comments.length > 0; }).length;
+  var today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  var todayCount = allData.reduce(function(sum, d) {
+    return sum + d.comments.filter(function(c) { return c.date === today; }).length;
+  }, 0);
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-posts').textContent = postsWithComments;
+  document.getElementById('stat-today').textContent = todayCount;
+
+  // Render — only show posts that have comments, sorted by most recent first
+  var withComments = allData.filter(function(d) { return d.comments.length > 0; });
+
+  if (withComments.length === 0) {
+    container.innerHTML = '<div class="loading">No comments yet.</div>';
+    return;
+  }
+
+  container.innerHTML = withComments.map(function(d) {
+    var rows = d.comments.map(function(c) {
+      return '<div class="comment-row">' +
+        '<div class="comment-meta">' +
+          '<div class="comment-author">' + escHtml(c.name) + '</div>' +
+          '<div class="comment-date">' + c.date + '</div>' +
+        '</div>' +
+        '<div class="comment-text">' + escHtml(c.text) + '</div>' +
+        '<button class="delete-btn" onclick="deleteComment(\'' + d.post.id + '\',' + c.id + ')">Delete</button>' +
+      '</div>';
+    }).join('');
+
+    return '<div class="post-section">' +
+      '<div class="post-header">' +
+        '<span class="post-name">' + d.post.label + '</span>' +
+        '<span class="post-count">' + d.comments.length + ' comment' + (d.comments.length !== 1 ? 's' : '') + '</span>' +
+      '</div>' +
+      rows +
+    '</div>';
+  }).join('');
+}
+
+// ── Delete a comment ──────────────────────────────────────────
+function deleteComment(postId, commentId) {
+  if (!confirm('Delete this comment?')) return;
+  var comments = loadComments(postId);
+  var updated = comments.filter(function(c) { return c.id !== commentId; });
+  try { localStorage.setItem('pw_comments:' + postId, JSON.stringify(updated)); } catch(e) {}
+  loadAll();
+}
+
+// ── Helpers ───────────────────────────────────────────────────
+function loadComments(postId) {
+  try {
+    var raw = localStorage.getItem('pw_comments:' + postId);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+</script>
+</body>
+</html>

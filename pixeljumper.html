@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="PixelWeirdo by Pixelated Wisdom"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pixel Jumper — PixelWeirdo</title>
+  <meta name="description" content="A Doodle Jump-style mini game built into PixelWeirdo. One level per blog post. Collect pages, unlock characters, beat your speed run."/>
+  <link rel="canonical" href="https://pixelweirdo.com/pixeljumper"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="PixelWeirdo"/>
+  <meta property="og:title" content="Pixel Jumper — PixelWeirdo"/>
+  <meta property="og:description" content="One level per blog post. Collect pages, unlock characters."/>
+  <meta property="og:url" content="https://pixelweirdo.com/pixeljumper"/>
+  <meta property="og:image" content="https://pixelweirdo.com/images/logo.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Pixel Jumper — PixelWeirdo"/>
+  <meta name="twitter:description" content="One level per blog post. Collect pages, unlock characters."/>
+  <meta name="twitter:image" content="https://pixelweirdo.com/images/logo.png"/>
+  <link rel="apple-touch-icon" href="images/logo.png"/>
+  <link rel="icon" href="images/logo.png" type="image/png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="js/main.js"></script>
+  <style>
+    /* ── PAGE BASE ─────────────────────────────────────────── */
+    body { background: #0a0812; }
+
+    /* ── HERO ──────────────────────────────────────────────── */
+    .pjp-hero {
+      background: #0a0812;
+      min-height: unset;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 80px 40px 60px;
+    }
+    /* Pixel grid background texture */
+    .pjp-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,77,190,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,77,190,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    /* Radial glow behind canvas */
+    .pjp-hero::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 55%;
+      transform: translate(-50%,-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(ellipse, rgba(124,77,190,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .pjp-hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+    .pjp-eyebrow {
+      font-family: var(--font-px);
+      font-size: 0.32rem;
+      color: var(--accent);
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pjp-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--accent);
+    }
+    .pjp-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 22px;
+      font-weight: 700;
+    }
+    .pjp-title em { color: var(--accent); font-style: normal; }
+    .pjp-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 440px;
+    }
+    .pjp-hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      padding: 16px 36px;
+      font-family: var(--font-px);
+      font-size: 0.42rem;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 0 0 0 rgba(124,77,190,0);
+    }
+    .pjp-hero-cta:hover {
+      background: #6a3daa;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(124,77,190,0.35);
+    }
+    .pjp-hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .pjp-stat-num {
+      font-family: var(--font-px);
+      font-size: 0.75rem;
+      color: #fff;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .pjp-stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Hero canvas panel */
+    .pjp-hero-canvas-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    #pjp-hero-canvas {
+      display: block;
+      border: 2px solid rgba(124,77,190,0.3);
+      box-shadow:
+        0 0 0 1px rgba(124,77,190,0.1),
+        0 0 40px rgba(124,77,190,0.15),
+        0 0 80px rgba(124,77,190,0.06);
+      image-rendering: pixelated;
+    }
+    .pjp-hero-canvas-label {
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-px);
+      font-size: 0.26rem;
+      color: rgba(255,255,255,0.25);
+      white-space: nowrap;
+      letter-spacing: 2px;
+    }
+
+    /* ── FEATURES SECTION ──────────────────────────────────── */
+    .pjp-features {
+      background: #0e0b1a;
+      padding: 88px 40px;
+      border-top: 1px solid rgba(124,77,190,0.15);
+    }
+    .pjp-features-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .pjp-section-eyebrow {
+      font-family: var(--font-px);
+      font-size: 0.3rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .pjp-section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: #fff;
+      text-align: center;
+      margin-bottom: 56px;
+      font-weight: 600;
+    }
+    .pjp-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .pjp-feat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 32px 28px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .pjp-feat:hover {
+      background: rgba(124,77,190,0.07);
+      border-color: rgba(124,77,190,0.25);
+    }
+    .pjp-feat-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .pjp-feat-title {
+      font-family: var(--font-px);
+      font-size: 0.3rem;
+      color: #fff;
+      line-height: 1.7;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .pjp-feat-desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+
+    /* ── LEVELS SECTION ────────────────────────────────────── */
+    .pjp-levels {
+      background: #0a0812;
+      padding: 88px 40px;
+      border-top: 1px solid rgba(124,77,190,0.1);
+    }
+    .pjp-levels-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .pjp-levels-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 48px;
+    }
+    .pjp-level-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .pjp-level-card:hover {
+      background: rgba(124,77,190,0.08);
+      border-color: rgba(124,77,190,0.3);
+      transform: translateY(-2px);
+    }
+    .pjp-level-emoji {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      width: 36px;
+      text-align: center;
+    }
+    .pjp-level-info { flex: 1; min-width: 0; }
+    .pjp-level-num {
+      font-family: var(--font-px);
+      font-size: 0.22rem;
+      color: var(--accent);
+      margin-bottom: 3px;
+      letter-spacing: 1px;
+    }
+    .pjp-level-name {
+      font-size: 0.82rem;
+      color: #fff;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pjp-level-date {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.25);
+    }
+    /* Progress indicator per card — shown if localStorage has data */
+    .pjp-level-status {
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    /* ── SKINS SECTION ─────────────────────────────────────── */
+    .pjp-skins {
+      background: #2d1a5e;
+      padding: 88px 40px;
+    }
+    .pjp-skins-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .pjp-skins-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+    .pjp-skins-text { }
+    .pjp-skins-desc {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.75;
+      margin-top: 16px;
+    }
+    .pjp-skins-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 8px;
+    }
+    .pjp-skin-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 8px;
+      text-align: center;
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .pjp-skin-item:hover { background: rgba(255,255,255,0.1); }
+    .pjp-skin-item canvas {
+      image-rendering: pixelated;
+      display: block;
+      margin: 0 auto 6px;
+    }
+    .pjp-skin-name {
+      font-family: var(--font-px);
+      font-size: 0.2rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+    .pjp-skin-lock {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.2);
+      margin-top: 2px;
+    }
+
+    /* ── SPEEDRUN SECTION ──────────────────────────────────── */
+    .pjp-speedrun {
+      background: #0e0b1a;
+      padding: 88px 40px;
+      border-top: 1px solid rgba(124,77,190,0.1);
+    }
+    .pjp-speedrun-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .pjp-speedrun-visual {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 32px;
+      text-align: center;
+    }
+    .pjp-speedrun-timer {
+      font-family: var(--font-px);
+      font-size: 1.4rem;
+      color: #f0ab5a;
+      letter-spacing: 4px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .pjp-speedrun-label {
+      font-family: var(--font-px);
+      font-size: 0.26rem;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 2px;
+    }
+    .pjp-speedrun-features {
+      list-style: none;
+      margin-top: 20px;
+    }
+    .pjp-speedrun-features li {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.55);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pjp-speedrun-features li::before {
+      content: '⏱';
+      font-size: 0.9rem;
+    }
+
+    /* ── BOTTOM CTA ────────────────────────────────────────── */
+    .pjp-bottom-cta {
+      background: #0a0812;
+      padding: 100px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(124,77,190,0.1);
+    }
+    .pjp-bottom-cta-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: #fff;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    .pjp-bottom-cta-title em { color: var(--accent); font-style: normal; }
+    .pjp-bottom-cta-sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 36px;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .pjp-hero-inner { grid-template-columns: 1fr; gap: 48px; padding: 60px 0 0; }
+      .pjp-hero-canvas-wrap { order: -1; }
+      .pjp-feature-grid { grid-template-columns: 1fr 1fr; }
+      .pjp-levels-grid { grid-template-columns: 1fr 1fr; }
+      .pjp-skins-intro { grid-template-columns: 1fr; gap: 32px; }
+      .pjp-skins-grid { grid-template-columns: repeat(5, 1fr); }
+      .pjp-speedrun-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .pjp-hero { padding: 60px 20px 40px; }
+      .pjp-features, .pjp-levels, .pjp-skins, .pjp-speedrun, .pjp-bottom-cta { padding: 56px 20px; }
+      .pjp-feature-grid { grid-template-columns: 1fr; }
+      .pjp-levels-grid { grid-template-columns: 1fr; }
+      .pjp-skins-grid { grid-template-columns: repeat(3, 1fr); }
+      .pjp-hero-stats { flex-wrap: wrap; gap: 20px; }
+    }
+
+
+    /* ── IFRAME GAME EMBED ─────────────────────────────────── */
+    .pjp-iframe-wrap {
+      display: flex;
+      justify-content: center;
+    }
+    #pjp-game-iframe {
+      width: 100%;
+      max-width: 900px;
+      height: 700px;
+      border: none;
+      display: block;
+    }
+    @media (max-width: 960px) {
+      #pjp-game-iframe { height: 600px; }
+    }
+    @media (max-width: 600px) {
+      #pjp-game-iframe { height: 520px; }
+    }
+
+
+  </style>
+</head>
+<body>
+<script src="js/header.js"></script>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════ -->
+<section class="pjp-hero">
+  <div class="pjp-hero-inner">
+
+    <div class="pjp-hero-copy">
+      <div class="pjp-eyebrow">MINI GAME</div>
+      <h1 class="pjp-title">The blog<br/>is also<br/>a <em>game</em>.</h1>
+      <p class="pjp-desc">Pixel Jumper is a Doodle Jump-style platformer built into PixelWeirdo. Every blog post is a level. Jump between platforms, collect 20 pages, and unlock the achievement — and a character skin — for that post.</p>
+      <a href="#play" class="pjp-hero-cta" onclick="document.getElementById('play').scrollIntoView({behavior:'smooth'});return false;">▶ Play Now — It's Free</a>
+      <div class="pjp-hero-stats">
+        <div>
+          <span class="pjp-stat-num" id="pjp-stat-levels">—</span>
+          <span class="pjp-stat-label">Levels</span>
+        </div>
+        <div>
+          <span class="pjp-stat-num" id="pjp-stat-skins">—</span>
+          <span class="pjp-stat-label">Characters</span>
+        </div>
+        <div>
+          <span class="pjp-stat-num">∞</span>
+          <span class="pjp-stat-label">Speed runs</span>
+        </div>
+        <div>
+          <span class="pjp-stat-num" id="pjp-cleared-stat">0</span>
+          <span class="pjp-stat-label">Your clears</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pjp-hero-canvas-wrap">
+      <canvas id="pjp-hero-canvas" width="260" height="300"></canvas>
+      <div class="pjp-hero-canvas-label">PIXEL JUMPER · PIXELWEIRDO.COM</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FEATURES
+═══════════════════════════════════════════════════════ -->
+<section class="pjp-features">
+  <div class="pjp-features-inner">
+    <div class="pjp-section-eyebrow">HOW IT WORKS</div>
+    <h2 class="pjp-section-title">Everything you need to know</h2>
+    <div class="pjp-feature-grid">
+      <div class="pjp-feat">
+        <span class="pjp-feat-icon">📄</span>
+        <div class="pjp-feat-title">COLLECT PAGES</div>
+        <p class="pjp-feat-desc">Each level has 20 pages floating above platforms. Some are gold — collect them for a quote from the blog post and bonus points.</p>
+      </div>
+      <div class="pjp-feat">
+        <span class="pjp-feat-icon">🎯</span>
+        <div class="pjp-feat-title">BOSS PLATFORM</div>
+        <p class="pjp-feat-desc">Collect 18 pages and a glowing boss platform appears at the top. Jump on it to complete the level. More satisfying than a simple counter.</p>
+      </div>
+      <div class="pjp-feat">
+        <span class="pjp-feat-icon">❤️</span>
+        <div class="pjp-feat-title">POWER-UPS</div>
+        <p class="pjp-feat-desc">Hearts give you one death save per level. Magnets pull nearby pages toward you for 10 seconds. Both spawn rarely — use them well.</p>
+      </div>
+      <div class="pjp-feat">
+        <span class="pjp-feat-icon">🏆</span>
+        <div class="pjp-feat-title">ACHIEVEMENTS</div>
+        <p class="pjp-feat-desc">Clear a level to unlock its achievement and character skin. Replay any level you've already cleared. All progress is saved locally.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     EMBEDDED GAME
+═══════════════════════════════════════════════════════ -->
+<section class="pjp-game-section" id="play">
+  <div class="pjp-game-inner">
+    <div class="pjp-section-eyebrow">PLAY NOW</div>
+    <h2 class="pjp-section-title" style="margin-bottom:40px;">Jump in. Right here.</h2>
+    <div class="pjp-iframe-wrap">
+      <iframe
+        id="pjp-game-iframe"
+        src="game.html"
+        title="Pixel Jumper"
+        scrolling="no"
+        frameborder="0"
+        allow="autoplay"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     LEVELS
+═══════════════════════════════════════════════════════ -->
+<section class="pjp-levels">
+  <div class="pjp-levels-inner">
+    <div class="pjp-section-eyebrow">THE LEVELS</div>
+    <h2 class="pjp-section-title"><span class="pjp-count">16</span> posts. <span class="pjp-count">16</span> levels. Oldest first.</h2>
+    <div class="pjp-levels-grid" id="pjp-levels-grid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SKINS
+═══════════════════════════════════════════════════════ -->
+<section class="pjp-skins">
+  <div class="pjp-skins-inner">
+    <div class="pjp-skins-intro">
+      <div class="pjp-skins-text">
+        <div class="pjp-section-eyebrow" style="text-align:left">CHARACTERS</div>
+        <h2 class="pjp-section-title" style="text-align:left;margin-bottom:0"><span class="pjp-skin-total">17</span> Weirdos.<br/>One per achievement.</h2>
+        <p class="pjp-skins-desc">Every level you complete unlocks a new character skin inspired by that game. Clear Dark Souls III and unlock the Undead Knight. Clear Stardew Valley and unlock the Farmer. Equip them in the pause menu under the Weirdo tab.</p>
+      </div>
+      <div>
+        <div class="pjp-section-eyebrow" style="text-align:left;margin-bottom:16px">YOUR COLLECTION</div>
+        <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:8px;">
+          <span style="font-family:var(--font-px);font-size:1.2rem;color:#fff;" id="pjp-skin-count">0</span>
+          <span style="font-size:0.85rem;color:rgba(255,255,255,0.4);">of <span class="pjp-skin-total">17</span> characters unlocked</span>
+        </div>
+        <div style="height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;margin-bottom:24px;">
+          <div style="height:100%;background:var(--accent);border-radius:2px;transition:width 0.6s;" id="pjp-skin-bar"></div>
+        </div>
+        <a href="game.html" style="display:inline-block;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 20px;font-family:var(--font-px);font-size:0.28rem;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.18)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">Unlock more →</a>
+      </div>
+    </div>
+    <div class="pjp-skins-grid" id="pjp-skins-grid"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SPEED RUN
+═══════════════════════════════════════════════════════ -->
+<section class="pjp-speedrun">
+  <div class="pjp-speedrun-inner">
+    <div>
+      <div class="pjp-section-eyebrow" style="text-align:left">SPEED RUN MODE</div>
+      <h2 class="pjp-section-title" style="text-align:left;font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:16px;">A completely<br/>different challenge.</h2>
+      <p style="font-size:0.9rem;color:rgba(255,255,255,0.5);line-height:1.75;margin-bottom:24px;">Toggle Speed Run mode before starting a level. Your timer starts on the first page you collect and stops when you land on the boss platform. Personal bests are saved per level.</p>
+      <ul class="pjp-speedrun-features">
+        <li>Timer starts on first page collect — not on spawn</li>
+        <li>Quote overlays are disabled in speed run mode</li>
+        <li>Personal best shown above the canvas</li>
+        <li>Separate from normal play — progress is independent</li>
+      </ul>
+    </div>
+    <div class="pjp-speedrun-visual">
+      <span class="pjp-speedrun-timer" id="pjp-sr-timer">0:12.47</span>
+      <div class="pjp-speedrun-label">PERSONAL BEST · DARK SOULS III</div>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;" id="pjp-sr-bests"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     BOTTOM CTA
+═══════════════════════════════════════════════════════ -->
+<section class="pjp-bottom-cta">
+  <div class="pjp-eyebrow" style="justify-content:center;margin-bottom:20px;">FREE · NO ACCOUNT · SAVED LOCALLY</div>
+  <h2 class="pjp-bottom-cta-title">Ready to <em>jump in</em>?</h2>
+  <p class="pjp-bottom-cta-sub">Your progress saves in the browser. Pick up where you left off any time.</p>
+  <a href="#play" class="pjp-hero-cta" onclick="document.getElementById('play').scrollIntoView({behavior:'smooth'});return false;">▶ Play Pixel Jumper</a>
+</section>
+
+<script src="js/footer.js"></script>
+
+<script>
+(function(){
+  // ── Data ────────────────────────────────────────────────
+  var LEVELS = [
+    {id:'rocket-league',    name:'Rocket League',     date:'Jun 2024',emoji:'🚗',color:'#4488ee',slug:'rocket-league'},
+    {id:'undertale',        name:'Undertale',         date:'Jul 2024',emoji:'❤️',color:'#cc4488',slug:'undertale'},
+    {id:'hades',            name:'Hades',             date:'Aug 2024',emoji:'⚡',color:'#cc3322',slug:'hades'},
+    {id:'stardew-valley',   name:'Stardew Valley',    date:'Sep 2024',emoji:'🌱',color:'#44bb44',slug:'stardew-valley'},
+    {id:'amnesia',          name:'Amnesia',           date:'Oct 2024',emoji:'👁️',color:'#8844aa',slug:'amnesia'},
+    {id:'fallout-3',        name:'Fallout 3',         date:'Nov 2024',emoji:'☢️',color:'#aaaa22',slug:'fallout-3'},
+    {id:'skyrim',           name:'Skyrim',            date:'Dec 2024',emoji:'🐉',color:'#6688cc',slug:'skyrim'},
+    {id:'pokemon',          name:'Pokémon Red',       date:'Jan 2025',emoji:'⚡',color:'#cc2222',slug:'pokemon'},
+    {id:'crash-bandicoot',  name:'Crash Bandicoot',   date:'Jan 2025',emoji:'🟠',color:'#e07010',slug:'crash-bandicoot'},
+    {id:'the-sims',         name:'The Sims 3',        date:'Feb 2025',emoji:'🏠',color:'#00bb55',slug:'the-sims'},
+    {id:'last-of-us',       name:'The Last of Us',    date:'Feb 2025',emoji:'🍄',color:'#3a8a3a',slug:'last-of-us'},
+    {id:'world-of-warcraft',name:'World of Warcraft', date:'Mar 2025',emoji:'⚔️',color:'#8060d0',slug:'world-of-warcraft'},
+    {id:'princess-peach',   name:'Princess Peach',    date:'Mar 2025',emoji:'👑',color:'#dd4488',slug:'princess-peach'},
+    {id:'overcooked',       name:'Overcooked 2',      date:'Apr 2025',emoji:'🍳',color:'#e05a00',slug:'overcooked'},
+    {id:'moving-out',       name:'Moving Out',        date:'Apr 2025',emoji:'📦',color:'#2e8fb5',slug:'moving-out'},
+    {id:'dark-souls',       name:'Dark Souls III',    date:'May 2025',emoji:'🔥',color:'#9966dd',slug:'dark-souls'},
+  ];
+
+  var SKINS = [
+    {id:'default',  name:'PixelWeirdo', unlockId:null},
+    {id:'referee',  name:'Referee',     unlockId:'rocket-league'},
+    {id:'frisk',    name:'Frisk',       unlockId:'undertale'},
+    {id:'warrior',  name:'Warrior',     unlockId:'hades'},
+    {id:'farmer',   name:'Farmer',      unlockId:'stardew-valley'},
+    {id:'ghost',    name:'Ghost',       unlockId:'amnesia'},
+    {id:'vault',    name:'Vault Dweller',unlockId:'fallout-3'},
+    {id:'viking',   name:'Viking',      unlockId:'skyrim'},
+    {id:'trainer',  name:'Trainer',     unlockId:'pokemon'},
+    {id:'bandicoot',name:'Bandicoot',   unlockId:'crash-bandicoot'},
+    {id:'simmer',   name:'Plumbob',     unlockId:'the-sims'},
+    {id:'survivor', name:'Survivor',    unlockId:'last-of-us'},
+    {id:'mage',     name:'Mage',        unlockId:'world-of-warcraft'},
+    {id:'princess', name:'Princess',    unlockId:'princess-peach'},
+    {id:'chef',     name:'Chef',        unlockId:'overcooked'},
+    {id:'mover',    name:'Mover',       unlockId:'moving-out'},
+    {id:'undead',   name:'Undead Knight',unlockId:'dark-souls'},
+  ];
+
+  function gs(k,d){ try{ var r=localStorage.getItem('pwg_'+k); return r!==null?JSON.parse(r):d; }catch(e){return d;} }
+  var ach    = gs('ach',{});
+  var srbests= gs('srbests',{});
+  var cleared= Object.keys(ach).length;
+
+  // ── Personal best shown in speed run section ────────────
+  var srEl = document.getElementById('pjp-sr-bests');
+  var timerEl = document.getElementById('pjp-sr-timer');
+  var bKeys = Object.keys(srbests);
+  if(bKeys.length > 0 && srEl){
+    // Show real bests
+    var html = '';
+    var shown = 0;
+    LEVELS.forEach(function(l){
+      if(srbests[l.id] && shown < 4){
+        shown++;
+        var s = srbests[l.id];
+        var m = Math.floor(s/60), sec = (s%60).toFixed(2);
+        if(sec < 10) sec = '0'+sec;
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.78rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">' +
+          '<span style="color:rgba(255,255,255,0.5);">' + l.emoji + ' ' + l.name + '</span>' +
+          '<span style="font-family:\'Press Start 2P\',monospace;font-size:0.55rem;color:#f0ab5a;">' + m + ':' + sec + '</span>' +
+        '</div>';
+        if(shown === 1 && timerEl) timerEl.textContent = m + ':' + sec;
+      }
+    });
+    srEl.innerHTML = html || '';
+  }
+
+  // ── Player stats ─────────────────────────────────────────
+  // Auto-update level + skin counts from LEVELS array
+  document.querySelectorAll('.pjp-count').forEach(function(el){ el.textContent=LEVELS.length; });
+  var slEl=document.getElementById('pjp-stat-levels'); if(slEl) slEl.textContent=LEVELS.length;
+  var ssEl=document.getElementById('pjp-stat-skins');  if(ssEl) ssEl.textContent=SKINS.length;
+  document.querySelectorAll('.pjp-skin-total').forEach(function(el){ el.textContent=SKINS.length; });
+
+  var clearedEl = document.getElementById('pjp-cleared-stat');
+  if(clearedEl) clearedEl.textContent = cleared;
+
+  // ── Build levels grid ────────────────────────────────────
+  var grid = document.getElementById('pjp-levels-grid');
+  if(grid){
+    grid.innerHTML = LEVELS.map(function(l, i){
+      var done = !!ach[l.id];
+      return '<a class="pjp-level-card" href="game.html?level='+i+'" style="border-color:'+(done?'rgba(124,77,190,0.3)':'rgba(255,255,255,0.06)')+';background:'+(done?'rgba(124,77,190,0.06)':'rgba(255,255,255,0.03)') +'">' +
+        '<div class="pjp-level-emoji">'+l.emoji+'</div>' +
+        '<div class="pjp-level-info">' +
+          '<div class="pjp-level-num">LVL '+(i+1)+'</div>' +
+          '<div class="pjp-level-name">'+l.name+'</div>' +
+          '<div class="pjp-level-date">'+l.date+'</div>' +
+        '</div>' +
+        '<div class="pjp-level-status">'+(done?'✓':'▶')+'</div>' +
+      '</a>';
+    }).join('');
+  }
+
+  // ── Build skins grid ─────────────────────────────────────
+  var skinGrid = document.getElementById('pjp-skins-grid');
+  var skinCount = document.getElementById('pjp-skin-count');
+  var skinBar   = document.getElementById('pjp-skin-bar');
+  var unlockedSkins = SKINS.filter(function(s){ return s.unlockId===null||!!ach[s.unlockId]; }).length;
+
+  if(skinCount) skinCount.textContent = unlockedSkins;
+  if(skinBar)   skinBar.style.width   = Math.round(unlockedSkins/17*100)+'%';
+
+  if(skinGrid){
+    skinGrid.innerHTML = SKINS.map(function(s){
+      var unlocked = s.unlockId===null||!!ach[s.unlockId];
+      return '<div class="pjp-skin-item" title="'+s.name+'" style="opacity:'+(unlocked?1:0.4)+'">' +
+        '<canvas width="44" height="56" style="image-rendering:pixelated;display:block;margin:0 auto 6px;" id="pjp-skin-'+s.id+'"></canvas>' +
+        '<div class="pjp-skin-name">'+s.name+'</div>' +
+        (unlocked ? '' : '<div class="pjp-skin-lock">🔒</div>') +
+      '</div>';
+    }).join('');
+
+    // Draw skins on canvases using same drawSkin logic as game
+    SKINS.forEach(function(s){
+      var c = document.getElementById('pjp-skin-'+s.id);
+      if(c){ var cx=c.getContext('2d'); drawSkinPreview(cx, s.id); }
+    });
+  }
+
+  // ── Skin preview drawing (mirrors game.html drawSkin at S=2) ──
+  function drawSkinPreview(ctx2, skinId){
+    var x=2, y=2, S=2;
+    ctx2.clearRect(0,0,44,56);
+    if(skinId==='default'){
+      ctx2.fillStyle='#7c4dbe'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+1,S*4,S*4);
+      ctx2.fillStyle='#3a2a0a'; ctx2.fillRect(x+3,y+1,S*4,S); ctx2.fillRect(x+3,y+1,S,S*2);
+      ctx2.fillStyle='#1a1a2e'; ctx2.fillRect(x+4,y+4,S*2,S); ctx2.fillRect(x+8,y+4,S*2,S);
+      ctx2.fillStyle='#aaaaff'; ctx2.fillRect(x+4,y+4,S,S); ctx2.fillRect(x+8,y+4,S,S);
+      ctx2.fillStyle='#3a2a0a'; ctx2.fillRect(x+6,y+4,S,S);
+      ctx2.fillStyle='#2a1a5e'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+      ctx2.fillStyle='#f0ab5a'; ctx2.fillRect(x+2,y+24,S*3,S); ctx2.fillRect(x+7,y+24,S*3,S);
+      ctx2.fillStyle='#7c4dbe'; ctx2.fillRect(x,y+8,S,S*4); ctx2.fillRect(x+12,y+8,S,S*4);
+    } else if(skinId==='referee'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+1,S*4,S*4);
+      ctx2.fillStyle='#111'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      for(var i=0;i<3;i++){ ctx2.fillStyle=i%2===0?'#fff':'#111'; ctx2.fillRect(x+2,y+8+i*4,S*5,4); }
+      ctx2.fillStyle='#ff2200'; ctx2.fillRect(x+5,y+10,S,S*2);
+      ctx2.fillStyle='#111'; ctx2.fillRect(x+3,y+1,S*4,S);
+      ctx2.fillStyle='#2a1a5e'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+      ctx2.fillStyle='#111'; ctx2.fillRect(x+2,y+24,S*3,S); ctx2.fillRect(x+7,y+24,S*3,S);
+      ctx2.fillStyle='#111'; ctx2.fillRect(x,y+8,S,S*4); ctx2.fillRect(x+12,y+8,S,S*4);
+      ctx2.fillStyle='#ffcc00'; ctx2.fillRect(x+12,y+10,4,3);
+    } else if(skinId==='frisk'){
+      ctx2.fillStyle='#c8894a'; ctx2.fillRect(x+3,y+1,S*4,S*4);
+      ctx2.fillStyle='#5544cc'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      for(var i=0;i<3;i++){ ctx2.fillStyle=i%2===0?'#5544cc':'#aa6622'; ctx2.fillRect(x+2,y+8+i*3,S*5,3); }
+      ctx2.fillStyle='#7a4a14'; ctx2.fillRect(x+3,y+1,S*4,S); ctx2.fillRect(x+2,y+1,S,S*3);
+      ctx2.fillStyle='#2a1a5e'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='warrior'){
+      ctx2.fillStyle='#333'; ctx2.fillRect(x+3,y+2,S*4,S*4);
+      ctx2.fillStyle='#555'; ctx2.fillRect(x+2,y+1,S*5,S*2);
+      ctx2.fillStyle='#ff4400'; ctx2.fillRect(x+4,y+4,S,S); ctx2.fillRect(x+8,y+4,S,S);
+      ctx2.fillStyle='#444'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#cc1100'; ctx2.fillRect(x-2,y+6,4,S*8); ctx2.fillRect(x+16,y+6,4,S*8);
+      ctx2.fillStyle='#888'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='farmer'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+2,S*4,S*4);
+      ctx2.fillStyle='#3a5a8a'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#f5e090'; ctx2.fillRect(x+1,y+0,S*6,3);
+      ctx2.fillStyle='#c8a020'; ctx2.fillRect(x+3,y-4,S*4,6);
+      ctx2.fillStyle='#3a5a8a'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='ghost'){
+      ctx2.fillStyle='rgba(230,230,255,0.95)'; ctx2.fillRect(x+2,y+0,S*5,S*7);
+      ctx2.fillRect(x,y+8,S,S*8); ctx2.fillRect(x+12,y+8,S,S*8);
+      ctx2.fillStyle='#2222aa'; ctx2.fillRect(x+4,y+6,S*2,S*2); ctx2.fillRect(x+8,y+6,S*2,S*2);
+    } else if(skinId==='vault'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+1,S*4,S*4);
+      ctx2.fillStyle='#2244aa'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#ffcc00'; ctx2.fillRect(x+4,y+9,S*3,S); ctx2.fillRect(x+4,y+12,S*3,S);
+      ctx2.fillStyle='#3a2a0a'; ctx2.fillRect(x+3,y+1,S*4,S);
+      ctx2.fillStyle='#2244aa'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+      ctx2.fillStyle='#ffcc00'; ctx2.fillRect(x+2,y+24,S*3,S); ctx2.fillRect(x+7,y+24,S*3,S);
+    } else if(skinId==='viking'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+3,S*4,S*3);
+      ctx2.fillStyle='#777'; ctx2.fillRect(x+2,y+1,S*5,S*3);
+      ctx2.fillStyle='#ccc'; ctx2.fillRect(x,y-2,4,6); ctx2.fillRect(x+14,y-2,4,6);
+      ctx2.fillStyle='#8a4a1a'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#8a4a1a'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='trainer'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+2,S*4,S*4);
+      ctx2.fillStyle='#cc1111'; ctx2.fillRect(x+2,y-1,S*5,S*2);
+      ctx2.fillStyle='#2255cc'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#226699'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='bandicoot'){
+      ctx2.fillStyle='#e07010'; ctx2.fillRect(x+3,y+1,S*4,S*4);
+      ctx2.fillStyle='#f0a040'; ctx2.fillRect(x+4,y+2,S*3,S*2);
+      ctx2.fillStyle='#e07010'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#cc5500'; for(var i=0;i<3;i++) ctx2.fillRect(x+4+i*3,y-3,2,4);
+      ctx2.fillStyle='#3a6aaa'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='simmer'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+3,S*4,S*3);
+      ctx2.fillStyle='#00dd44';
+      ctx2.beginPath(); ctx2.moveTo(x+11,y-4); ctx2.lineTo(x+3,y+2); ctx2.lineTo(x+11,y+6); ctx2.lineTo(x+19,y+2); ctx2.fill();
+      ctx2.fillStyle='#5588cc'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#5588cc'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='survivor'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+1,S*3,S*2);
+      ctx2.fillStyle='#cc4422'; ctx2.fillRect(x+3,y+4,S*4,S*2);
+      ctx2.fillStyle='#3a5a2a'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#2a3a1a'; ctx2.fillRect(x+2,y+1,S,S*4); ctx2.fillRect(x+10,y+1,S,S*4);
+      ctx2.fillStyle='#2a3a14'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='mage'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+3,S*4,S*3);
+      ctx2.fillStyle='#2233aa'; ctx2.fillRect(x+2,y+8,S*5,S*6);
+      ctx2.fillStyle='#3344cc'; ctx2.beginPath(); ctx2.moveTo(x+11,y-8); ctx2.lineTo(x+3,y+2); ctx2.lineTo(x+19,y+2); ctx2.fill();
+      ctx2.fillStyle='#2233aa'; ctx2.fillRect(x+2,y+1,S*5,4);
+      ctx2.fillStyle='#2233aa'; ctx2.fillRect(x+3,y+18,S*2,S*4); ctx2.fillRect(x+7,y+18,S*2,S*4);
+    } else if(skinId==='princess'){
+      ctx2.fillStyle='#f5c0c0'; ctx2.fillRect(x+3,y+2,S*4,S*4);
+      ctx2.fillStyle='#ffdd00'; ctx2.fillRect(x+3,y+0,S*4,3); ctx2.fillRect(x+3,y-4,3,6); ctx2.fillRect(x+7,y-4,3,6);
+      ctx2.fillStyle='#ff6699'; ctx2.fillRect(x+1,y+8,S*6,S*6);
+      ctx2.fillStyle='#ff6699'; ctx2.fillRect(x+2,y+20,S*3,S*3); ctx2.fillRect(x+7,y+20,S*3,S*3);
+    } else if(skinId==='chef'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+3,S*4,S*3);
+      ctx2.fillStyle='#fff'; ctx2.fillRect(x+2,y-2,S*5,7); ctx2.fillRect(x+3,y-4,S*4,3);
+      ctx2.fillStyle='#fff'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#cc2200'; ctx2.fillRect(x+3,y+13,5,4);
+      ctx2.fillStyle='#2a2a2a'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='mover'){
+      ctx2.fillStyle='#f5d0a9'; ctx2.fillRect(x+3,y+2,S*4,S*4);
+      ctx2.fillStyle='#ffcc00'; ctx2.fillRect(x+2,y+0,S*5,S*2);
+      ctx2.fillStyle='#e07010'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#ffff00'; ctx2.fillRect(x+3,y+10,S*4,2); ctx2.fillRect(x+3,y+15,S*4,2);
+      ctx2.fillStyle='#333'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    } else if(skinId==='undead'){
+      ctx2.fillStyle='#222'; ctx2.fillRect(x+3,y+1,S*4,S*4);
+      ctx2.fillStyle='#333'; ctx2.fillRect(x+2,y+1,S*5,S);
+      ctx2.fillStyle='#ff6600'; ctx2.fillRect(x+4,y+4,S,S); ctx2.fillRect(x+8,y+4,S,S);
+      ctx2.fillStyle='#1a1a1a'; ctx2.fillRect(x+2,y+8,S*5,S*5);
+      ctx2.fillStyle='#333'; ctx2.fillRect(x+4,y+9,S*3,S); ctx2.fillRect(x+4,y+13,S*3,S);
+      ctx2.fillStyle='#222'; ctx2.fillRect(x+3,y+18,S*2,S*3); ctx2.fillRect(x+7,y+18,S*2,S*3);
+    }
+  }
+
+  // ── Hero canvas — NES-style Weirdo bounce + mini game demo ──
+  var hcv = document.getElementById('pjp-hero-canvas');
+  if(!hcv) return;
+  var hctx = hcv.getContext('2d');
+  var W=260, H=300, t=0;
+
+  // Platforms — evenly spaced so player loops nicely
+  var plats = [
+    {x:15,  y:275, w:80,  c:'#4488ee'},
+    {x:145, y:230, w:72,  c:'#cc4488'},
+    {x:20,  y:188, w:78,  c:'#cc3322'},
+    {x:148, y:148, w:68,  c:'#44bb44'},
+    {x:18,  y:108, w:75,  c:'#8060d0'},
+    {x:148, y:68,  w:72,  c:'#9966dd'},
+  ];
+  // Pages
+  var pgs = [
+    {x:40,  y:258, bob:0,    c:'#4488ee'},
+    {x:168, y:213, bob:1.0,  c:'#cc4488'},
+    {x:55,  y:171, bob:2.1,  c:'#cc3322'},
+    {x:170, y:131, bob:0.5,  c:'#44bb44'},
+  ];
+
+  // Player — starts on bottom platform
+  var py=240, vy=0, GRAV=0.32, JUMP=-10.2;
+
+  function drawNESChar(ctx2, x, y, p){
+    // NES-style chunky Weirdo at scale p
+    ctx2.fillStyle='#3a2000';
+    ctx2.fillRect(x,      y,      p*5, p);
+    ctx2.fillRect(x,      y+p,    p,   p*2);
+    ctx2.fillRect(x+p*4,  y+p,    p,   p);
+    ctx2.fillStyle='#f5c08a';
+    ctx2.fillRect(x+p,    y+p,    p*3, p*3);
+    ctx2.fillStyle='#111133';
+    ctx2.fillRect(x+p,    y+p*2,  p,   p);
+    ctx2.fillRect(x+p*3,  y+p*2,  p,   p);
+    ctx2.fillStyle='#ccccff';
+    ctx2.fillRect(x+p,    y+p*2,  p/2, p/2);
+    ctx2.fillRect(x+p*3,  y+p*2,  p/2, p/2);
+    ctx2.fillStyle='#7c4dbe';
+    ctx2.fillRect(x,      y+p*4,  p*5, p*4);
+    ctx2.fillRect(x-p,    y+p*4,  p,   p*3);
+    ctx2.fillRect(x+p*5,  y+p*4,  p,   p*3);
+    ctx2.fillStyle='#5a32a0';
+    ctx2.fillRect(x+p,    y+p*6,  p*3, p*2);
+    ctx2.fillStyle='#1e1a44';
+    ctx2.fillRect(x,      y+p*8,  p*2, p*3);
+    ctx2.fillRect(x+p*3,  y+p*8,  p*2, p*3);
+    ctx2.fillStyle='#f0ab5a';
+    ctx2.fillRect(x-p/2,  y+p*11, p*3, p);
+    ctx2.fillRect(x+p*3-p/2, y+p*11, p*3, p);
+  }
+
+  function drawMiniPage(ctx2, x, y, bob, col){
+    var by = y + Math.sin(bob)*3;
+    ctx2.fillStyle='#fff'; ctx2.fillRect(x,by,11,14);
+    ctx2.fillStyle=col;
+    ctx2.fillRect(x+1,by+2,9,2); ctx2.fillRect(x+1,by+6,9,2); ctx2.fillRect(x+1,by+10,7,2);
+    ctx2.fillStyle='#ddd';
+    ctx2.beginPath(); ctx2.moveTo(x+8,by); ctx2.lineTo(x+11,by+3); ctx2.lineTo(x+8,by+3); ctx2.fill();
+  }
+
+  function heroLoop(){
+    t += 0.04;
+
+    // Physics
+    vy += GRAV; py += vy;
+    if(vy > 0){
+      plats.forEach(function(pl){
+        var bot = py + 36;
+        if(bot >= pl.y && bot <= pl.y + 10 + vy + 2 && 130+20 > pl.x && 130 < pl.x+pl.w){
+          vy = JUMP; py = pl.y - 36;
+        }
+      });
+    }
+    if(py > H + 40){ py = 240; vy = JUMP * 0.7; }
+
+    hctx.clearRect(0,0,W,H);
+
+    // Background gradient
+    var g = hctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#0d0d1a'); g.addColorStop(1,'#1a1030');
+    hctx.fillStyle=g; hctx.fillRect(0,0,W,H);
+
+    // Pixel grid
+    hctx.fillStyle='rgba(124,77,190,0.04)';
+    for(var gx=0;gx<260;gx+=16) hctx.fillRect(gx,0,1,300);
+    for(var gy=0;gy<300;gy+=16) hctx.fillRect(0,gy,260,1);
+
+    // Stars
+    hctx.fillStyle='rgba(255,255,255,0.3)';
+    [[20,20],[220,25],[130,45],[40,80],[230,100],[90,130],[220,170],[25,200],[170,230],[100,270]].forEach(function(s){
+      hctx.fillRect(s[0],s[1],2,2);
+    });
+
+    // Platforms
+    plats.forEach(function(pl){
+      hctx.fillStyle=pl.c; hctx.fillRect(pl.x,pl.y,pl.w,10);
+      hctx.fillStyle='rgba(255,255,255,0.3)'; hctx.fillRect(pl.x,pl.y,pl.w,2);
+      hctx.fillStyle='rgba(0,0,0,0.25)'; hctx.fillRect(pl.x,pl.y+8,pl.w,2);
+    });
+
+    // Pages
+    pgs.forEach(function(pg){ pg.bob+=0.04; drawMiniPage(hctx,pg.x,pg.y,pg.bob,pg.c); });
+
+    // Player — NES Weirdo at p=4
+    drawNESChar(hctx, 108, py-44, 4);
+
+    // HUD bar
+    hctx.fillStyle='rgba(0,0,0,0.5)'; hctx.fillRect(0,0,W,28);
+    hctx.font='7px "Press Start 2P",monospace';
+    hctx.fillStyle='rgba(255,255,255,0.8)'; hctx.textAlign='left';
+    hctx.fillText('PIXEL JUMPER', 12, 18);
+    hctx.fillStyle='#7c4dbe'; hctx.textAlign='right';
+    hctx.fillText('pixelweirdo.com', 248, 18);
+    hctx.textAlign='left';
+
+    requestAnimationFrame(heroLoop);
+  }
+  requestAnimationFrame(heroLoop);
+}());
+</script>
+
+</body>
+</html>

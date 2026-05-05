@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="PixelWeirdo by Pixelated Wisdom"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PixelWeirdo — Gaming. Learning. Life.</title>
+  <meta name="description" content="What your controller is teaching you. Games, life lessons, science and more from PixelWeirdo."/>
+  <link rel="canonical" href="https://pixelweirdo.com/"/>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="PixelWeirdo"/>
+  <meta property="og:title" content="PixelWeirdo — Gaming. Learning. Life."/>
+  <meta property="og:description" content="What your controller is teaching you. Games, life lessons, science and more from PixelWeirdo."/>
+  <meta property="og:url" content="https://pixelweirdo.com/"/>
+  <meta property="og:image" content="https://pixelweirdo.com/images/logo.png"/>
+  <meta property="og:image:width" content="1024"/>
+  <meta property="og:image:height" content="1024"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="PixelWeirdo — Gaming. Learning. Life."/>
+  <meta name="twitter:description" content="What your controller is teaching you. Games, life lessons, science and more from PixelWeirdo."/>
+  <meta name="twitter:image" content="https://pixelweirdo.com/images/logo.png"/>
+  <!-- Schema.org WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PixelWeirdo",
+    "url": "https://pixelweirdo.com",
+    "description": "What your controller is teaching you. Games, life lessons, science and more from PixelWeirdo.",
+    "publisher": {"@type": "Organization", "name": "PixelWeirdo", "logo": {"@type": "ImageObject", "url": "https://pixelweirdo.com/images/logo.png"}},
+    "potentialAction": {"@type": "SearchAction", "target": "https://pixelweirdo.com/blog?q={search_term_string}", "query-input": "required name=search_term_string"}
+  }
+  </script>
+  <link rel="apple-touch-icon" href="images/logo.png"/>
+  <link rel="icon" href="images/logo.png" type="image/png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="js/main.js"></script>
+  <style>
+    .hero-hook {
+      display: inline-block;
+      font-family: var(--font-px);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+      line-height: 1.8;
+    }
+    .hero-blurb {
+      font-size: 0.95rem;
+      color: var(--ink3);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto 32px;
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+    .hero-title { font-size: clamp(1.6rem, 4vw, 2.8rem) !important; }
+    /* ── START HERE CAROUSEL ── */
+    .start-here-section {
+      background: #2d1a5e;
+      padding: 56px 32px;
+    }
+    .start-here-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .start-here-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .start-here-eyebrow {
+      font-family: var(--font-px);
+      font-size: 0.38rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 2px;
+    }
+    .start-here-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .start-here-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 28px;
+    }
+    .sh-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sh-btn {
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; transition: background 0.2s;
+    }
+    .sh-btn:hover { background: rgba(255,255,255,0.18); }
+    .sh-dots { display: flex; gap: 6px; }
+    .sh-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,0.25); cursor: pointer;
+      transition: background 0.2s;
+    }
+    .sh-dot.active { background: #f0ab5a; }
+    .sh-track-wrap { overflow: hidden; }
+    .sh-track {
+      display: flex;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .start-here-card {
+      min-width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 36px 40px;
+      text-decoration: none;
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      box-sizing: border-box;
+      transition: background 0.2s;
+    }
+    .start-here-card:hover { background: rgba(255,255,255,0.1); }
+    .start-here-emoji {
+      font-size: 4rem;
+      flex-shrink: 0;
+    }
+    .start-here-body { flex: 1; }
+    .start-here-game {
+      font-family: var(--font-px);
+      font-size: 0.3rem;
+      color: #f0ab5a;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+    .start-here-card-title {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+    .start-here-reason {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+    .start-here-cta {
+      font-family: var(--font-px);
+      font-size: 0.3rem;
+      color: #f0ab5a;
+      letter-spacing: 1px;
+    }
+    .sh-progress {
+      height: 2px;
+      background: rgba(255,255,255,0.1);
+      margin-top: 20px;
+    }
+    .sh-progress-bar {
+      height: 100%;
+      background: #f0ab5a;
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+      width: 0%;
+    }
+    @media (max-width: 600px) {
+      .start-here-card { flex-direction: column; padding: 24px; gap: 16px; }
+      .start-here-card-title { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<script src="js/header.js"></script>
+<!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-label">Gaming · Life · Learning</div>
+      <h1 class="hero-title">You've put 600 hours into Skyrim.<br/>You've rage-quit Elden Ring four times.<br/>You still think about that one moment in The Last of Us.</h1>
+      <p class="hero-desc"><span class="hero-hook">This is the blog for that.</span></p>
+      <div class="hero-blurb">This isn't a review site. No scores, no release calendars, no sponsored content. Just one person digging into why certain games get under your skin — and what that says about being human.</div>
+      <div class="hero-actions">
+        <a class="btn-primary" href="blog.html">Read the Blog</a>
+        <a class="btn-ghost" href="about.html">Our Story →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY STRIP -->
+  <div class="cat-strip">
+    <div class="cat-strip-inner">
+      <button class="cat-btn active" onclick="filterHome('all',this)">All</button>
+      <button class="cat-btn" onclick="filterHome('lessons',this)">Life Lessons</button>
+      <button class="cat-btn" onclick="filterHome('graphics',this)">Graphics & Tech</button>
+      <button class="cat-btn" onclick="filterHome('skills',this)">Skills & Science</button>
+    </div>
+  </div>
+
+  <!-- AD ZONE -->
+  <div class="ad-zone">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-placeholder">
+      <span>[ Google AdSense — Replace this block with your ad unit code ]</span>
+    </div>
+  </div>
+
+
+  <!-- START HERE CAROUSEL -->
+  <section class="start-here-section">
+    <div class="start-here-inner">
+      <div class="start-here-header">
+        <div>
+          <div class="start-here-eyebrow">NEW HERE?</div>
+          <h2 class="start-here-title">Start here.</h2>
+          <p class="start-here-sub">Three posts. Pick the one that sounds most like you.</p>
+        </div>
+        <div class="sh-controls">
+          <div class="sh-dots" id="sh-dots"></div>
+          <button class="sh-btn" id="sh-prev">&#8592;</button>
+          <button class="sh-btn" id="sh-next">&#8594;</button>
+        </div>
+      </div>
+      <div class="sh-track-wrap">
+        <div class="sh-track" id="sh-track">
+
+          <a class="start-here-card" href="posts/moving-out.html">
+            <span class="start-here-emoji">📦</span>
+            <div class="start-here-body">
+              <div class="start-here-game">MOVING OUT</div>
+              <div class="start-here-card-title">Here's to a New Home and a Broken Back</div>
+              <div class="start-here-reason">"Start here if you've ever moved house and questioned every life decision."</div>
+              <span class="start-here-cta">Read the post →</span>
+            </div>
+          </a>
+
+          <a class="start-here-card" href="posts/overcooked.html">
+            <span class="start-here-emoji">🍳</span>
+            <div class="start-here-body">
+              <div class="start-here-game">OVERCOOKED 2</div>
+              <div class="start-here-card-title">What's for Dinner?</div>
+              <div class="start-here-reason">"Start here if you've ever snapped at someone you love under pressure."</div>
+              <span class="start-here-cta">Read the post →</span>
+            </div>
+          </a>
+
+          <a class="start-here-card" href="posts/fallout-3.html">
+            <span class="start-here-emoji">☢️</span>
+            <div class="start-here-body">
+              <div class="start-here-game">FALLOUT 3</div>
+              <div class="start-here-card-title">To Be Good or Not to Be Good…</div>
+              <div class="start-here-reason">"Start here if you've ever wondered what kind of person you actually are."</div>
+              <span class="start-here-cta">Read the post →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+      <div class="sh-progress"><div class="sh-progress-bar" id="sh-progress-bar"></div></div>
+    </div>
+  </section>
+
+  <!-- FEATURED POSTS -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Latest Stories</h2>
+      <a class="section-link" href="blog.html">View all →</a>
+    </div>
+    <div class="posts-grid" id="home-posts-grid">
+
+      <a class="post-card featured" href="posts/dark-souls.html"data-cat="lessons">
+        <div class="card-thumb card-thumb--photo" style="background:linear-gradient(135deg,#0d0d1a,#1a1030)" data-slug="dark-souls"><img src="images/posts/dark-souls.jpg" alt="dark souls" loading="lazy" onerror="this.closest('.card-thumb').classList.remove('card-thumb--photo')"></div>
+        <div class="card-body">
+          <span class="card-tag">Life Lessons</span>
+          <h3 class="card-title">Seek Strength… The Rest Will Follow</h3>
+          <p class="card-excerpt">Dark Souls III is brutal, beautiful, and secretly one of the most compelling arguments for asking for help you'll ever encounter.</p>
+          <div class="card-meta"><span>May 2025</span><span class="card-meta-dot"></span><span>7 min read</span></div>
+        </div>
+      </a>
+
+      <a class="post-card" href="posts/moving-out.html"data-cat="lessons">
+        <div class="card-thumb card-thumb--photo" style="background:linear-gradient(135deg,#1a2a3a,#2e5c7a)" data-slug="moving-out"><img src="images/posts/moving-out.jpg" alt="moving out" loading="lazy" onerror="this.closest('.card-thumb').classList.remove('card-thumb--photo')"></div>
+        <div class="card-body">
+          <span class="card-tag">Life Lessons</span>
+          <h3 class="card-title card-title-sm">Here's to a New Home and a Broken Back</h3>
+          <div class="card-meta"><span>Apr 2025</span><span class="card-meta-dot"></span><span>8 min</span></div>
+        </div>
+      </a>
+
+      <a class="post-card" href="posts/overcooked.html"data-cat="lessons">
+        <div class="card-thumb card-thumb--photo" style="background:linear-gradient(135deg,#1a0a00,#5c2500)" data-slug="overcooked"><img src="images/posts/overcooked.jpg" alt="overcooked" loading="lazy" onerror="this.closest('.card-thumb').classList.remove('card-thumb--photo')"></div>
+        <div class="card-body">
+          <span class="card-tag">Life Lessons</span>
+          <h3 class="card-title card-title-sm">What's for Dinner?</h3>
+          <div class="card-meta"><span>Apr 2025</span><span class="card-meta-dot"></span><span>8 min</span></div>
+        </div>
+      </a>
+
+      <a class="post-card" href="posts/princess-peach.html"data-cat="lessons">
+        <div class="card-thumb card-thumb--photo" style="background:linear-gradient(135deg,#3a0a2a,#b02060)" data-slug="princess-peach"><img src="images/posts/princess-peach.jpg" alt="princess peach" loading="lazy" onerror="this.closest('.card-thumb').classList.remove('card-thumb--photo')"></div>
+        <div class="card-body">
+          <span class="card-tag">Life Lessons</span>
+          <h3 class="card-title card-title-sm">A Strong, Independent Princess</h3>
+          <div class="card-meta"><span>Mar 2025</span><span class="card-meta-dot"></span><span>9 min</span></div>
+        </div>
+      </a>
+
+      <a class="post-card" href="posts/world-of-warcraft.html"data-cat="skills">
+        <div class="card-thumb card-thumb--photo" style="background:linear-gradient(135deg,#0a0a1a,#1a0a2e)" data-slug="world-of-warcraft"><img src="images/posts/world-of-warcraft.jpg" alt="world of warcraft" loading="lazy" onerror="this.closest('.card-thumb').classList.remove('card-thumb--photo')"></div>
+        <div class="card-body">
+          <span class="card-tag coral">Skills & Science</span>
+          <h3 class="card-title card-title-sm">Just One More Level</h3>
+          <div class="card-meta"><span>Mar 2025</span><span class="card-meta-dot"></span><span>10 min</span></div>
+        </div>
+      </a>
+
+    </div>
+    <div style="margin-top:32px;text-align:center" id="home-no-results" style="display:none">
+      <p style="color:var(--ink3);font-size:0.9rem">No posts in this category yet — <a style="color:var(--accent)" href="blog.html">see all posts →</a></p>
+    </div>
+  </div>
+
+  <!-- GAME RECOMMENDATIONS -->
+  <!-- PIXEL JUMPER TEASER STRIP -->
+  <section class="pj-strip">
+    <canvas id="pj-strip-canvas" width="120" height="150" aria-hidden="true"></canvas>
+    <div class="pj-strip-text">
+      <div class="pj-strip-headline">There's a game hidden in this blog</div>
+      <div class="pj-strip-sub"><span id="strip-level-count">16</span> levels. One per post. Collect pages, unlock characters.</div>
+    </div>
+    <a href="game.html" class="pj-strip-cta">▶ Play Pixel Jumper</a>
+  </section>
+
+  <script>
+  (function(){
+    var cv = document.getElementById('pj-strip-canvas');
+    if(!cv) return;
+    var ctx = cv.getContext('2d');
+    var t = 0;
+
+    function drawChar(y){
+      // NES-style sprite — chunky blocks, 4px pixel unit, ~32x40 character
+      var x=38, p=4;
+
+      // Hair — dark brown, flat top
+      ctx.fillStyle='#3a2000';
+      ctx.fillRect(x,    y,    p*5, p);    // hair top
+      ctx.fillRect(x,    y+p,  p,   p*2);  // left sideburn
+      ctx.fillRect(x+p*4,y+p,  p,   p);    // right sideburn
+
+      // Face — skin tone
+      ctx.fillStyle='#f5c08a';
+      ctx.fillRect(x+p,  y+p,  p*3, p*3);  // face
+
+      // Glasses — two solid dark squares, white dot each
+      ctx.fillStyle='#111133';
+      ctx.fillRect(x+p,  y+p*2, p,   p);   // left lens
+      ctx.fillRect(x+p*3,y+p*2, p,   p);   // right lens
+      ctx.fillStyle='#ccccff';
+      ctx.fillRect(x+p,  y+p*2, p/2, p/2); // left glint
+      ctx.fillRect(x+p*3,y+p*2, p/2, p/2); // right glint
+
+      // Hoodie — solid purple body
+      ctx.fillStyle='#7c4dbe';
+      ctx.fillRect(x,    y+p*4, p*5, p*4); // torso
+      ctx.fillRect(x-p,  y+p*4, p,   p*3); // left arm
+      ctx.fillRect(x+p*5,y+p*4, p,   p*3); // right arm
+
+      // Pocket — one darker block
+      ctx.fillStyle='#5a32a0';
+      ctx.fillRect(x+p,  y+p*6, p*3, p*2);
+
+      // Trousers — dark navy, two legs
+      ctx.fillStyle='#1e1a44';
+      ctx.fillRect(x,    y+p*8, p*2, p*3); // left leg
+      ctx.fillRect(x+p*3,y+p*8, p*2, p*3); // right leg
+
+      // Shoes — amber, slightly wider than legs
+      ctx.fillStyle='#f0ab5a';
+      ctx.fillRect(x-p/2,y+p*11,p*3, p);   // left shoe
+      ctx.fillRect(x+p*3-p/2,y+p*11,p*3,p);// right shoe
+    }
+
+    function loop(){
+      t += 0.018; // very slow idle
+
+      // Gentle sine bob — only 4px of movement total
+      var bob = Math.sin(t) * 3;
+      var charY = 44 + bob;
+
+      ctx.clearRect(0,0,120,150);
+
+      // Soft shadow — shrinks slightly as character rises
+      ctx.fillStyle='rgba(124,77,190,0.25)';
+      var shadowScale = 1 - (Math.abs(bob) / 20);
+      ctx.beginPath();
+      ctx.ellipse(60, 144, 20 * shadowScale, 4 * shadowScale, 0, 0, Math.PI*2);
+      ctx.fill();
+
+      drawChar(charY);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  // Update level count from header LEVELS array
+  document.addEventListener("DOMContentLoaded",function(){
+    if(window.PWLEVELS){
+      var el=document.getElementById("strip-level-count");
+      if(el) el.textContent=window.PWLEVELS;
+    }
+  });
+  }());
+  </script>
+
+  <section class="games-section section-full">
+    <div class="section" style="padding-bottom:0">
+      <div class="section-header">
+        <h2 class="section-title">Games From the Blog</h2>
+        <a class="section-link" href="games.html">See all →</a>
+      </div>
+      <p style="font-size:0.95rem;color:var(--ink2);margin-top:-24px;margin-bottom:32px;">Every game featured in our posts — and why it's worth your time.</p>
+    </div>
+    <div class="section" style="padding-top:0">
+      <div class="games-grid">
+
+        <a class="game-card" href="posts/dark-souls.html">
+          <div class="game-thumb" style="background:linear-gradient(135deg,#0d0d1a,#1a1030)">🔥</div>
+          <div class="game-body">
+            <span class="game-tag-from">From: Seek Strength post</span>
+            <div class="game-title">Dark Souls III</div>
+            <div class="game-genre">Action RPG · FromSoftware</div>
+            <div class="game-why">"The best interactive argument for asking for help ever made."</div>
+            <span class="game-link">Read the post</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="posts/moving-out.html">
+          <div class="game-thumb" style="background:linear-gradient(135deg,#1a2a3a,#2e5c7a)">📦</div>
+          <div class="game-body">
+            <span class="game-tag-from">From: New Home post</span>
+            <div class="game-title">Moving Out</div>
+            <div class="game-genre">Co-op · Simulation · DevM Games</div>
+            <div class="game-why">"Moving is terrible. This makes it hilarious."</div>
+            <span class="game-link">Read the post</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="posts/overcooked.html">
+          <div class="game-thumb" style="background:linear-gradient(135deg,#1a0a00,#5c2500)">🍳</div>
+          <div class="game-body">
+            <span class="game-tag-from">From: What's for Dinner post</span>
+            <div class="game-title">Overcooked 2</div>
+            <div class="game-genre">Co-op · Cooking · Ghost Town Games</div>
+            <div class="game-why">"A relationship test disguised as a cooking game."</div>
+            <span class="game-link">Read the post</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="posts/world-of-warcraft.html">
+          <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1a0a2e)">⚔️</div>
+          <div class="game-body">
+            <span class="game-tag-from">From: Just One More Level post</span>
+            <div class="game-title">World of Warcraft</div>
+            <div class="game-genre">MMORPG · Blizzard Entertainment</div>
+            <div class="game-why">"Engineered for addiction — and still worth it."</div>
+            <span class="game-link">Read the post</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="posts/last-of-us.html">
+          <div class="game-thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a3a1a)">🍄</div>
+          <div class="game-body">
+            <span class="game-tag-from">From: If Ethics Become Optional post</span>
+            <div class="game-title">The Last of Us</div>
+            <div class="game-genre">Action-Adventure · Naughty Dog</div>
+            <div class="game-why">"The most morally complex game ever made."</div>
+            <span class="game-link">Read the post</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="posts/the-sims.html">
+          <div class="game-thumb" style="background:linear-gradient(135deg,#003300,#006600)">🏠</div>
+          <div class="game-body">
+            <span class="game-tag-from">From: Struggles of a Sim post</span>
+            <div class="game-title">The Sims 3</div>
+            <div class="game-genre">Life Simulation · Maxis / EA</div>
+            <div class="game-why">"Turns out it's just a simulation of your thirties."</div>
+            <span class="game-link">Read the post</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PATREON -->
+
+  <section class="patreon-section">
+    <div class="patreon-inner">
+      <div class="patreon-eyebrow">BECOME A PATRON</div>
+      <h2 class="patreon-title">Go beyond<br/>the <em>free posts</em></h2>
+      <p class="patreon-sub">The blog is free — and will stay that way, supported by ads. But patrons get access to things the regular site doesn't offer. Think of it as the director's cut.</p>
+      <div class="patreon-tiers">
+        <div class="tier">
+          <span class="tier-badge">PLAYER SUPPORT</span>
+          <div class="tier-name">Player 1</div>
+          <div class="tier-price">€3<span>/month</span></div>
+          <ul class="tier-perks">
+            <li>Keep the train running</li>
+            <li>Your name in post credits</li>
+            <li>Supporter badge</li>
+          </ul>
+        </div>
+        <div class="tier featured">
+          <span class="tier-badge">★ BEST VALUE</span>
+          <div class="tier-name">Level Up</div>
+          <div class="tier-price">€5<span>/month</span></div>
+          <ul class="tier-perks">
+            <li>Early access to every post</li>
+            <li>Exclusive Patron-only articles</li>
+            <li>Behind-the-scenes on game graphics</li>
+            <li>Vote on upcoming topics</li>
+            <li>Everything in Player 1</li>
+          </ul>
+        </div>
+      </div>
+      <a href="https://www.patreon.com/c/PixelWeirdo" target="_blank" rel="noopener noreferrer" class="btn-patreon">Join on Patreon →</a>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.45);margin-top:16px">The free blog isn't going anywhere. Patreon is for the extras.</p>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section" id="newsletter-section">
+    <div class="newsletter-inner">
+      <div class="nl-eyebrow">FREE NEWSLETTER</div>
+      <h2 class="nl-title">New stories, straight to you</h2>
+      <p class="nl-sub">Join readers who get every new post delivered to their inbox. No spam — just thoughtful writing about what games teach us.</p>
+      <form class="nl-form" onsubmit="handleSubscribe(event)">
+        <input type="email" class="nl-input" placeholder="your@email.com" required/>
+        <button type="submit" class="nl-submit">Subscribe →</button>
+      </form>
+      <p class="nl-note">We send to mao@pixelweirdo.com — you can unsubscribe anytime.</p>
+      <p class="nl-msg" id="nl-msg"></p>
+    </div>
+  </section>
+<script src="js/footer.js"></script>
+
+  <!-- Start Here Carousel JS -->
+  <script>
+  (function() {
+    var idx = 0;
+    var total = 3;
+
+    function buildDots() {
+      var el = document.getElementById('sh-dots');
+      if (!el) return;
+      el.innerHTML = '';
+      for (var i = 0; i < total; i++) {
+        var d = document.createElement('div');
+        d.className = 'sh-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('data-i', i);
+        d.addEventListener('click', function() { go(parseInt(this.getAttribute('data-i'))); });
+        el.appendChild(d);
+      }
+    }
+
+    function go(n) {
+      idx = ((n % total) + total) % total;
+      var track = document.getElementById('sh-track');
+      if (track) track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      document.querySelectorAll('.sh-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === idx);
+      });
+      var bar = document.getElementById('sh-progress-bar');
+      if (bar) bar.style.width = (idx / (total - 1) * 100) + '%';
+    }
+
+    function init() {
+      buildDots();
+      go(0);
+      var prev = document.getElementById('sh-prev');
+      var next = document.getElementById('sh-next');
+      if (prev) prev.addEventListener('click', function() { go(idx - 1); });
+      if (next) next.addEventListener('click', function() { go(idx + 1); });
+      // Touch support
+      var wrap = document.querySelector('.sh-track-wrap');
+      var startX = 0;
+      if (wrap) {
+        wrap.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, {passive: true});
+        wrap.addEventListener('touchend', function(e) {
+          var diff = startX - e.changedTouches[0].clientX;
+          if (Math.abs(diff) > 40) go(diff > 0 ? idx + 1 : idx - 1);
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  }());
+  </script>
+<script src="js/skin-badge.js"></script>
+</body>
+</html>

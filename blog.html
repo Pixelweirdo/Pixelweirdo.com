@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="PixelWeirdo by Pixelated Wisdom"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — PixelWeirdo</title>
+  <meta name="description" content="All posts from PixelWeirdo. Life lessons, graphics, science and skills — through the lens of gaming."/>
+  <link rel="canonical" href="https://pixelweirdo.com/blog"/>
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="PixelWeirdo"/>
+  <meta property="og:title" content="Blog"/>
+  <meta property="og:description" content="All posts from PixelWeirdo. Life lessons, graphics, science and skills — through the lens of gaming."/>
+  <meta property="og:url" content="https://pixelweirdo.com/blog"/>
+  <meta property="og:image" content="https://pixelweirdo.com/images/logo.png"/>
+  <meta property="og:image:width" content="1024"/>
+  <meta property="og:image:height" content="1024"/>
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Blog"/>
+  <meta name="twitter:description" content="All posts from PixelWeirdo. Life lessons, graphics, science and skills — through the lens of gaming."/>
+  <meta name="twitter:image" content="https://pixelweirdo.com/images/logo.png"/>
+  <!-- Schema.org WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PixelWeirdo",
+    "url": "https://pixelweirdo.com",
+    "description": "All posts from PixelWeirdo. Life lessons, graphics, science and skills — through the lens of gaming.",
+    "publisher": {"@type": "Organization", "name": "PixelWeirdo", "logo": {"@type": "ImageObject", "url": "https://pixelweirdo.com/images/logo.png"}},
+    "potentialAction": {"@type": "SearchAction", "target": "https://pixelweirdo.com/blog?q={search_term_string}", "query-input": "required name=search_term_string"}
+  }
+  </script>
+  <link rel="apple-touch-icon" href="images/logo.png"/>
+  <link rel="icon" href="images/logo.png" type="image/png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="js/main.js"></script>
+</head>
+<body>
+<script src="js/header.js"></script>
+<div class="blog-hero">
+    <div class="blog-hero-inner">
+      <div class="blog-hero-eyebrow">THE BLOG</div>
+      <h1 class="blog-hero-title">All Stories</h1>
+      <p class="blog-hero-sub">Explore every post — filter by topic below.</p>
+    </div>
+  </div>
+
+  <div class="ad-zone">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-placeholder"><span>[ Google AdSense — Replace with your ad unit ]</span></div>
+  </div>
+
+  <div class="section">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px">
+      <button class="cat-btn active" style="border:1px solid var(--border);padding:8px 18px" onclick="filterBlog('all',this)">All</button>
+      <button class="cat-btn" style="border:1px solid var(--border);padding:8px 18px" onclick="filterBlog('lessons',this)">Life Lessons</button>
+      <button class="cat-btn" style="border:1px solid var(--border);padding:8px 18px" onclick="filterBlog('graphics',this)">Graphics & Tech</button>
+      <button class="cat-btn" style="border:1px solid var(--border);padding:8px 18px" onclick="filterBlog('skills',this)">Skills & Science</button>
+    </div>
+    <div class="posts-list-grid" id="blog-list">
+      <a class="post-row-card" data-cat="lessons" href="posts/papers-please.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a1200,#3a2a00)" data-slug="papers-please"><img src="images/posts/papers-please.jpg" alt="papers please" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Just Following the Rules</div>
+          <p class="post-row-excerpt">Papers, Please gives you a stamp and a rulebook and asks how long you'll follow the rules when the rules are wrong. Stanley Milgram and Albert Bandura spent decades studying the answer.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Sep 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/katamari-damacy.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a003a,#5a00a0)" data-slug="katamari-damacy"><img src="images/posts/katamari-damacy.jpg" alt="katamari damacy" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Place Where Time Goes</div>
+          <p class="post-row-excerpt">Katamari Damacy is about rolling a ball into everything until the ball is the size of a planet. Mihaly Csikszentmihalyi's flow research explains why it is also one of the most psychologically optimal experiences in gaming.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Sep 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/firewatch.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#2a1200,#7a3a00)" data-slug="firewatch"><img src="images/posts/firewatch.jpg" alt="firewatch" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Escape We Think We Need</div>
+          <p class="post-row-excerpt">Firewatch is about a man who runs away to the wilderness to escape his life. Jonathan Rottenberg's research on emotional avoidance explains why the wilderness was never going to be enough.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Sep 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/inside.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a)" data-slug="inside"><img src="images/posts/inside.jpg" alt="inside" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Living With Not Knowing</div>
+          <p class="post-row-excerpt">Inside ends without explanation. Arie Kruglanski's need-for-closure research explains why some people are fine with that, some people are furious, and what the difference says about how we handle ambiguity everywhere else in our lives.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Aug 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/frostpunk.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0d1520,#1a2a40)" data-slug="frostpunk"><img src="images/posts/frostpunk.jpg" alt="frostpunk" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Good Person Who Did the Bad Thing</div>
+          <p class="post-row-excerpt">Frostpunk starts you off passing laws to keep people warm. It ends with you deciding things you told yourself you'd never decide. Anna Merritt's moral licensing research explains the journey.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Aug 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/night-in-the-woods.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0f0a1a,#2a1a4a)" data-slug="night-in-the-woods"><img src="images/posts/night-in-the-woods.jpg" alt="night in the woods" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Nobody Told Me the Map Would Stop Working</div>
+          <p class="post-row-excerpt">Night in the Woods is about coming home and finding that nothing fits. Jeffrey Arnett's research on emerging adulthood explains why your twenties feel like someone deleted the instruction manual.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Aug 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/unpacking.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#2d1b3d,#5e3b7a)" data-slug="unpacking"><img src="images/posts/unpacking.jpg" alt="unpacking" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Everything You Own Is a Little Bit You</div>
+          <p class="post-row-excerpt">Unpacking is a puzzle game about placing objects into rooms. Russell Belk's extended self theory explains why it made so many people unexpectedly emotional about a stuffed pig.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Aug 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/outer-wilds.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a14,#1a1428)" data-slug="outer-wilds"><img src="images/posts/outer-wilds.jpg" alt="outer wilds" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Itch to Know</div>
+          <p class="post-row-excerpt">Outer Wilds is a mystery game in which the mystery is the universe itself. George Loewenstein's 1994 information-gap theory of curiosity explains why the game is almost physically impossible to stop thinking about.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Aug 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/stanley-parable.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a1a2e,#16213e)" data-slug="stanley-parable"><img src="images/posts/stanley-parable.jpg" alt="stanley parable" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Why Telling Someone What To Do Is the Fastest Way to Make Them Do the Opposite</div>
+          <p class="post-row-excerpt">The Stanley Parable puts a narrator in your ear and asks you to follow him. Jack Brehm's 1966 theory of psychological reactance explains why the first thing most players do is try to break the game.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jul 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/animal-crossing.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0d2b0d,#2d6e2d)" data-slug="animal-crossing"><img src="images/posts/animal-crossing.jpg" alt="animal crossing" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Why Getting Everything You Wanted Doesn't Feel Like You Thought It Would</div>
+          <p class="post-row-excerpt">Animal Crossing: New Horizons is a game about building your perfect island life. Sonja Lyubomirsky's research on hedonic adaptation explains why you got the museum, the dream house, and all the furniture — and then stopped logging in.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jul 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/tetris.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a1a,#1a1a4a)" data-slug="tetris"><img src="images/posts/tetris.jpg" alt="tetris" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Why Your Brain Won't Let You Quit</div>
+          <p class="post-row-excerpt">Tetris is the most played game in human history, and a near-perfect demonstration of the Zeigarnik effect — your brain's compulsive need to finish what it started. Bluma Zeigarnik figured this out in a café in 1927. Alexey Pajitnov built it into a game in 1984.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jul 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/portal-2.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0d1f2d,#1a3a4a)" data-slug="portal-2"><img src="images/posts/portal-2.jpg" alt="portal 2" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Art of Reading the Room</div>
+          <p class="post-row-excerpt">Portal 2 is a cooperative puzzle game that quietly demands you build a working model of another person's mind. Rebecca Saxe's neuroscience research explains why this is one of the hardest things a human brain ever has to do — and why games might be the best place to practise it.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jul 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/spiritfarer.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#050e1a,#0a1e3a)" data-slug="spiritfarer"><img src="images/posts/spiritfarer.jpg" alt="spiritfarer" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Last Good Thing You Can Do</div>
+          <p class="post-row-excerpt">Spiritfarer asks you to care for dying souls and let them go. Research on caregiver burden and the psychology of goodbye explains why this hits so differently from anything else about death.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>May 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/celeste.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0520,#1a0a40)" data-slug="celeste"><img src="images/posts/celeste.jpg" alt="celeste" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Mountain Is Not the Enemy</div>
+          <p class="post-row-excerpt">Celeste is a game about climbing a mountain while your anxiety tries to stop you. Kristin Neff's self-compassion research explains why the way you talk to yourself on the way up matters more than the summit.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Apr 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/hollow-knight.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#050508,#0e0a18)" data-slug="hollow-knight"><img src="images/posts/hollow-knight.jpg" alt="hollow knight" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Cost of Going Deeper</div>
+          <p class="post-row-excerpt">Hollow Knight is a beautiful game about a knight who cannot stop descending. Behavioural economics has a name for what keeps pulling them — and you — further in.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Mar 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/among-us.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#050514,#0a0a28)" data-slug="among-us"><img src="images/posts/among-us.jpg" alt="among us" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Nobody Is Probably the Impostor</div>
+          <p class="post-row-excerpt">Among Us made billions of people confront how easily they can vote out an innocent person under social pressure. Game theory explains why this happens — and why you'll do it again next round.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Feb 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/journey.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0e0a05,#2a1e0a)" data-slug="journey"><img src="images/posts/journey.jpg" alt="journey" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Stranger Beside You</div>
+          <p class="post-row-excerpt">Journey pairs you with a random person, removes your ability to speak, and produces genuine connection in two hours. Attachment research explains why this works — and why most of our social media doesn't.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jan 2026</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/red-dead-redemption-2.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a0e05,#3a200a)" data-slug="red-dead-redemption-2"><img src="images/posts/red-dead-redemption-2.jpg" alt="red dead redemption 2" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Slowest Gun in the West</div>
+          <p class="post-row-excerpt">RDR2 makes you wait for everything — the horse animation, the skinning, the long ride through empty country. It's not a design flaw. It's the entire argument.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Dec 2025</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/minecraft.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a1a05,#1a3a08)" data-slug="minecraft"><img src="images/posts/minecraft.jpg" alt="minecraft" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Box Makes You Better</div>
+          <p class="post-row-excerpt">Minecraft gives you infinite space and almost no instructions. Counterintuitively, it's the constraints — the grid, the night, the hunger — that make creativity possible. Psychology explains why total freedom is the enemy of making things.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Nov 2025</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/disco-elysium.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0514,#1e0a3a)" data-slug="disco-elysium"><img src="images/posts/disco-elysium.jpg" alt="disco elysium" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">All Your Thoughts at Once</div>
+          <p class="post-row-excerpt">Disco Elysium gives you 30 skills that argue with each other before every decision. That's not just game design — it's the most honest model of the overwhelmed mind I've encountered outside a therapy room.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Oct 2025</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/it-takes-two.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a0a2a,#3a1a5a)" data-slug="it-takes-two"><img src="images/posts/it-takes-two.jpg" alt="it takes two" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">You Cannot Do This Alone</div>
+          <p class="post-row-excerpt">It Takes Two forces two players to communicate or fail. The Gottman research says this is exactly the skill most couples never actually practise — and why it matters more than love.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Sep 2025</span><span class="card-meta-dot"></span><span>8 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/edith-finch.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0e0a1a,#1e1030)" data-slug="edith-finch"><img src="images/posts/edith-finch.jpg" alt="edith finch" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Every Room a Different Goodbye</div>
+          <p class="post-row-excerpt">What Remains of Edith Finch is a two-hour game about a family that keeps dying. It is also the most honest thing I have encountered about grief — and why we are so bad at letting people go.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Aug 2025</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/knack.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a0e05,#4a2a10)" data-slug="knack"><img src="images/posts/knack.jpg" alt="knack" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Pulling Yourself Together</div>
+          <p class="post-row-excerpt">Knack absorbs relics and becomes something new. Identity theory says you are doing exactly the same thing — and how you integrate what you absorb matters more than what you started with.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jul 2025</span><span class="card-meta-dot"></span><span>8 min read</span></div>
+        </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/breath-of-the-wild.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a1a0e,#1a4a2a)" data-slug="breath-of-the-wild"><img src="images/posts/breath-of-the-wild.jpg" alt="breath of the wild" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Map Is Yours</div>
+          <p class="post-row-excerpt">Breath of the Wild hands you a world and walks away. Self-determination theory explains why that single design choice makes it one of the most motivating experiences ever made.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jun 2025</span><span class="card-meta-dot"></span><span>8 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/dark-souls.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0d0d1a,#1a1030)" data-slug="dark-souls"><img src="images/posts/dark-souls.jpg" alt="dark souls" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Seek Strength… The Rest Will Follow</div>
+          <p class="post-row-excerpt">Dark Souls III is brutal, beautiful, and secretly one of the best arguments for asking for help you'll ever encounter.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>May 2025</span><span class="card-meta-dot"></span><span>7 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/moving-out.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a2a3a,#2e5c7a)" data-slug="moving-out"><img src="images/posts/moving-out.jpg" alt="moving out" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Here's to a New Home and a Broken Back</div>
+          <p class="post-row-excerpt">Moving is terrible. Moving Out is a game about moving. One of these things is fun. Can you guess which?</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Apr 2025</span><span class="card-meta-dot"></span><span>8 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/overcooked.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a0a00,#5c2500)" data-slug="overcooked"><img src="images/posts/overcooked.jpg" alt="overcooked" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">What's for Dinner?</div>
+          <p class="post-row-excerpt">Cooking alone is a chore. Cooking together is a relationship test, a bonding exercise, and occasionally a kitchen fire. Science agrees.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Apr 2025</span><span class="card-meta-dot"></span><span>8 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/princess-peach.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#3a0a2a,#b02060)" data-slug="princess-peach"><img src="images/posts/princess-peach.jpg" alt="princess peach" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">A Strong, Independent Princess</div>
+          <p class="post-row-excerpt">Princess Peach started as a damsel in distress. Forty years later she rules a kingdom, controls the weather with her emotions, and saves Mario. We're talking about it.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Mar 2025</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="skills" href="posts/world-of-warcraft.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a1a,#1a0a2e)" data-slug="world-of-warcraft"><img src="images/posts/world-of-warcraft.jpg" alt="world of warcraft" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag coral" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Skills & Science</span>
+          <div class="post-row-title">Just One More Level</div>
+          <p class="post-row-excerpt">World of Warcraft is engineered to keep you playing. Here's the neuroscience of why it works, why it matters, and why I still load it up occasionally anyway.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Mar 2025</span><span class="card-meta-dot"></span><span>10 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/last-of-us.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a1a0a,#1a3a1a)" data-slug="last-of-us"><img src="images/posts/last-of-us.jpg" alt="last of us" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">If Ethics Become Optional</div>
+          <p class="post-row-excerpt">What actually holds people to their values — genuine ethics or just consequences? The Last of Us has thoughts. So do I.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Feb 2025</span><span class="card-meta-dot"></span><span>10 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/the-sims.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#003300,#006600)" data-slug="the-sims"><img src="images/posts/the-sims.jpg" alt="the sims" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">The Struggles of a Sim</div>
+          <p class="post-row-excerpt">My mum introduced me to The Sims. We both got addicted. Now I'm in my thirties and the game is disturbingly accurate about adult life.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Feb 2025</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="skills" href="posts/crash-bandicoot.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a0a00,#6e3a00)" data-slug="crash-bandicoot"><img src="images/posts/crash-bandicoot.jpg" alt="crash bandicoot" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag coral" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Skills & Science</span>
+          <div class="post-row-title">A Perfectionist Bandicoot</div>
+          <p class="post-row-excerpt">I traced my perfectionism to its source. It's a mutated orange marsupial. The research backs me up.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jan 2025</span><span class="card-meta-dot"></span><span>8 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/pokemon.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a0000,#8b0000)" data-slug="pokemon"><img src="images/posts/pokemon.jpg" alt="pokemon" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Pet Pokémon 101</div>
+          <p class="post-row-excerpt">I have a Great Dane. He is perfect. I still want a Growlithe. This post is a serious examination of that desire.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jan 2025</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="graphics" href="posts/skyrim.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3a)" data-slug="skyrim"><img src="images/posts/skyrim.jpg" alt="skyrim" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag teal" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Graphics & Tech</span>
+          <div class="post-row-title">Excellence Is Not a Skill, It's an Attitude</div>
+          <p class="post-row-excerpt">Skyrim's skill trees are a perfect metaphor for how mastery actually works — and what we lose when we have to wait 10,000 hours for it.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Dec 2024</span><span class="card-meta-dot"></span><span>10 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/fallout-3.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a00,#2a2a00)" data-slug="fallout-3"><img src="images/posts/fallout-3.jpg" alt="fallout 3" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">To Be Good or Not to Be Good…</div>
+          <p class="post-row-excerpt">I can't play evil in games. Some people can do it with no discomfort. The psychology of why is genuinely fascinating.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Nov 2024</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/amnesia.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a0a,#1a0a1a)" data-slug="amnesia"><img src="images/posts/amnesia.jpg" alt="amnesia" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">You Scream, I Scream, We Scream</div>
+          <p class="post-row-excerpt">Horror games are the best social activity nobody talks about. Here's why Amnesia brings people closer together than most things that are supposed to.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Oct 2024</span><span class="card-meta-dot"></span><span>8 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/stardew-valley.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a1a0a,#1a4a1a)" data-slug="stardew-valley"><img src="images/posts/stardew-valley.jpg" alt="stardew valley" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Out of Office: Gone Farming</div>
+          <p class="post-row-excerpt">30 million people play a game about watering crops and going to bed on time. There's a reason — and it's backed by occupational health research.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Sep 2024</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="skills" href="posts/hades.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#1a0a0a,#4a0a0a)" data-slug="hades"><img src="images/posts/hades.jpg" alt="hades" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag coral" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Skills & Science</span>
+          <div class="post-row-title">Failure Is the Mechanic</div>
+          <p class="post-row-excerpt">Hades is a game about dying repeatedly in the underworld. It's also one of the clearest demonstrations of what failure tolerance actually looks like in practice.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Aug 2024</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="lessons" href="posts/undertale.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a1a,#1a0a3a)" data-slug="undertale"><img src="images/posts/undertale.jpg" alt="undertale" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Life Lessons</span>
+          <div class="post-row-title">Nobody Has to Die</div>
+          <p class="post-row-excerpt">Undertale is a €10 RPG where you don't have to kill anyone. It made me cry. The empathy research explains exactly why it works.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jul 2024</span><span class="card-meta-dot"></span><span>9 min read</span></div>
+        
+      </div></a>
+      <a class="post-row-card" data-cat="skills" href="posts/rocket-league.html">
+        <div class="post-row-thumb post-row-thumb--photo" style="background:linear-gradient(135deg,#0a0a1a,#1a1a4a)" data-slug="rocket-league"><img src="images/posts/rocket-league.jpg" alt="rocket league" loading="lazy" onerror="this.closest('.post-row-thumb').classList.remove('post-row-thumb--photo')"></div>
+        <div class="post-row-body">
+          <span class="card-tag coral" style="font-size:0.32rem;padding:3px 8px;margin-bottom:8px;display:inline-block">Skills & Science</span>
+          <div class="post-row-title">You Are Better Than You Think. You Are Also Much Worse.</div>
+          <p class="post-row-excerpt">Rocket League is cars playing football. It's also a live demonstration of the Dunning-Kruger effect — and what accurate self-assessment actually feels like.</p>
+          <div class="card-meta" style="font-size:0.75rem"><span>Jun 2024</span><span class="card-meta-dot"></span><span>8 min read</span></div>
+        
+      </div></a>
+    </div>
+  </div>
+<script src="js/footer.js"></script>
+<script src="js/skin-badge.js"></script>
+</body>
+</html>

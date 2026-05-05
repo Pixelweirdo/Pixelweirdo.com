@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="author" content="PixelWeirdo by Pixelated Wisdom"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Games — PixelWeirdo</title>
+  <meta name="description" content="Every game featured on PixelWeirdo and why it is worth your time."/>
+  <link rel="canonical" href="https://pixelweirdo.com/games"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="PixelWeirdo"/>
+  <meta property="og:title" content="Games — PixelWeirdo"/>
+  <meta property="og:description" content="Every game featured on PixelWeirdo and why it is worth your time."/>
+  <meta property="og:url" content="https://pixelweirdo.com/games"/>
+  <meta property="og:image" content="https://pixelweirdo.com/images/logo.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Games — PixelWeirdo"/>
+  <meta name="twitter:description" content="Every game featured on PixelWeirdo and why it is worth your time."/>
+  <meta name="twitter:image" content="https://pixelweirdo.com/images/logo.png"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PixelWeirdo",
+    "url": "https://pixelweirdo.com",
+    "description": "Every game featured on PixelWeirdo and why it is worth your time.",
+    "publisher": {"@type": "Organization", "name": "PixelWeirdo", "logo": {"@type": "ImageObject", "url": "https://pixelweirdo.com/images/logo.png"}}
+  }
+  </script>
+  <link rel="apple-touch-icon" href="images/logo.png"/>
+  <link rel="icon" href="images/logo.png" type="image/png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Press+Start+2P&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="js/main.js"></script>
+  <style>
+    /* ── MOOD FILTER ── */
+    .mood-filter-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 32px; }
+    .mood-filter-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; gap: 20px; }
+    .mood-select-wrap { position: relative; display: inline-flex; align-items: center; }
+    .mood-select {
+      appearance: none; -webkit-appearance: none;
+      font-family: var(--font-sans); font-size: 0.875rem; font-weight: 500;
+      color: var(--ink); background: var(--cream);
+      border: 1px solid var(--border); padding: 10px 44px 10px 16px;
+      cursor: pointer; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      min-width: 220px;
+    }
+    .mood-select:hover, .mood-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,77,190,0.08); }
+    .mood-select-arrow { position: absolute; right: 14px; pointer-events: none; color: var(--accent); font-size: 0.9rem; font-weight: 700; }
+
+    /* ── CAROUSEL ── */
+    .featured-section { padding: 48px 32px 0; max-width: 1180px; margin: 0 auto; }
+    .featured-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .featured-eyebrow { font-family: var(--font-px); font-size: 0.38rem; color: var(--accent); letter-spacing: 2px; }
+    .carousel-controls { display: flex; align-items: center; gap: 12px; }
+    .carousel-btn {
+      width: 36px; height: 36px; border: 1px solid var(--border); background: var(--white);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--ink2); transition: all 0.2s;
+    }
+    .carousel-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .carousel-dots { display: flex; gap: 6px; }
+    .carousel-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border); cursor: pointer; transition: background 0.2s;
+    }
+    .carousel-dot.active { background: var(--accent); }
+    .carousel-track-wrap { overflow: hidden; }
+    .carousel-track {
+      display: flex; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); will-change: transform;
+    }
+    .game-card-featured {
+      min-width: 100%; background: var(--white); border: 1px solid var(--border);
+      overflow: hidden; cursor: pointer; display: flex;
+      transition: box-shadow 0.2s;
+    }
+    .game-card-featured:hover { box-shadow: var(--shadow-hover); }
+    .featured-thumb {
+      width: 420px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; min-height: 280px;
+    }
+    .featured-emoji { font-size: 6rem; position: relative; z-index: 1; }
+    .featured-thumb::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 60%, rgba(255,255,255,0.08));
+    }
+    .featured-badge {
+      position: absolute; top: 20px; left: 0; z-index: 2;
+      background: var(--accent2); padding: 6px 14px;
+    }
+    .featured-badge-pixel { font-family: var(--font-px); font-size: 0.28rem; color: #fff; letter-spacing: 1.5px; }
+    .featured-body { padding: 36px 40px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+    .featured-title { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; line-height: 1.2; }
+    .featured-why { font-size: 0.95rem; color: var(--ink2); line-height: 1.7; margin: 12px 0 8px; font-style: italic; }
+    .featured-post-ref { font-size: 0.78rem; color: var(--ink3); margin-bottom: 16px; }
+    .featured-post-ref em { color: var(--accent); font-style: normal; }
+    .carousel-progress {
+      height: 3px; background: var(--border); margin-top: 16px; margin-bottom: 48px;
+    }
+    .carousel-progress-bar {
+      height: 100%; background: var(--accent); transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ── DIVIDER ── */
+    .games-divider {
+      max-width: 1180px; margin: 0 auto; padding: 0 32px 32px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .games-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .games-divider-label { font-family: var(--font-px); font-size: 0.35rem; color: var(--ink3); letter-spacing: 2px; white-space: nowrap; }
+
+    /* ── MOOD TAGS ── */
+    .mood-tag {
+      display: inline-block; font-family: var(--font-px); font-size: 0.28rem;
+      letter-spacing: 1.2px; padding: 3px 8px; margin-bottom: 8px; border: 1px solid;
+    }
+    .mood-tag.solo      { color: #7c4dbe; background: rgba(124,77,190,0.08); border-color: rgba(124,77,190,0.2); }
+    .mood-tag.together  { color: #3a9fbf; background: rgba(58,159,191,0.08); border-color: rgba(58,159,191,0.2); }
+    .mood-tag.short     { color: #4caf7d; background: rgba(76,175,125,0.08); border-color: rgba(76,175,125,0.2); }
+    .mood-tag.stress    { color: #4caf7d; background: rgba(76,175,125,0.08); border-color: rgba(76,175,125,0.2); }
+    .mood-tag.deep      { color: #f0922b; background: rgba(240,146,43,0.08); border-color: rgba(240,146,43,0.2); }
+    .mood-tag.adrenaline{ color: #e53935; background: rgba(229,57,53,0.08);  border-color: rgba(229,57,53,0.2); }
+    .game-card-moods { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+
+    /* ── PLATFORM LINK ── */
+    .game-platform {
+      font-size: 0.75rem; color: var(--ink3); margin-top: 10px; padding-top: 10px;
+      border-top: 1px solid var(--border);
+    }
+    .game-platform a { color: var(--accent); text-decoration: none; font-weight: 500; transition: opacity 0.2s; }
+    .game-platform a:hover { opacity: 0.75; }
+
+    /* ── COUNT + EMPTY ── */
+    .games-count { font-family: var(--font-px); font-size: 0.35rem; color: var(--ink3); letter-spacing: 1px; margin-bottom: 28px; }
+    .games-none { display: none; grid-column: 1/-1; text-align: center; padding: 64px 32px; color: var(--ink3); }
+
+    /* ── WIDE CARD ── */
+    .game-card-wide {
+      grid-column: span 2;
+      display: flex;
+      flex-direction: row;
+    }
+    .game-card-wide .game-thumb {
+      width: 200px;
+      flex-shrink: 0;
+      aspect-ratio: unset;
+      min-height: 180px;
+      font-size: 4rem;
+    }
+    .game-card-wide .game-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .game-card-wide .game-why {
+      font-size: 0.875rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) { .featured-thumb { width: 140px; min-height: 200px; } .featured-body { padding: 20px; } .featured-title { font-size: 1.1rem; } .game-card-wide { grid-column: span 1; flex-direction: column; } .game-card-wide .game-thumb { width: 100%; min-height: unset; aspect-ratio: 1/1; } }
+    @media (max-width: 500px) { .game-card-featured { flex-direction: column; } .featured-thumb { width: 100%; min-height: 160px; } }
+  </style>
+</head>
+<body>
+<script src="js/header.js"></script>
+
+<div class="blog-hero">
+  <div class="blog-hero-inner">
+    <div class="blog-hero-eyebrow">GAMES</div>
+    <h1 class="blog-hero-title">Recommended Plays</h1>
+    <p class="blog-hero-sub">Every game featured in our posts — filtered by what you're in the mood for.</p>
+  </div>
+</div>
+
+<!-- MOOD FILTER -->
+<div class="mood-filter-bar">
+  <div class="mood-filter-inner">
+    <div class="mood-select-wrap">
+      <select id="mood-select" class="mood-select" onchange="filterGames(this.value)">
+        <option value="all">🎮 All Games</option>
+        <option value="solo">🌙 Solo Night</option>
+        <option value="together">🎮 Play Together</option>
+        <option value="short">⚡ Short &amp; Sweet</option>
+        <option value="stress">🌿 Stress Relief</option>
+        <option value="deep">🕳 Deep Dive</option>
+        <option value="adrenaline">🔥 Adrenaline Pumper</option>
+      </select>
+      <span class="mood-select-arrow">▾</span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<div class="featured-section" id="featured-section">
+  <div class="featured-header">
+    <div class="featured-eyebrow">★ LATEST FEATURES</div>
+    <div class="carousel-controls">
+      <div class="carousel-dots" id="carousel-dots"></div>
+      <button class="carousel-btn" id="carousel-prev" aria-label="Previous">&#8592;</button>
+      <button class="carousel-btn" id="carousel-next" aria-label="Next">&#8594;</button>
+    </div>
+  </div>
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="carousel-track">
+      <div class="game-card-featured" data-moods="solo deep adrenaline" data-index="0" onclick="location.href='posts/hollow-knight.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#050508,#0e0a18)">
+          <span class="featured-emoji">🦋</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+          <div class="featured-title">Hollow Knight</div>
+          <div class="featured-studio">Team Cherry · 2017</div>
+          <div class="featured-desc">Forty hours in a hand-drawn underground kingdom of dead insects. One of the most complete metroidvanias ever made. The optional content exists. You do not have to do it.</div>
+          <a class="featured-cta" href="posts/hollow-knight.html">Read the post →</a>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="together stress" data-index="1" onclick="location.href='posts/among-us.html'">
+        <div class="featured-thumb featured-thumb--photo" style="background:linear-gradient(135deg,#050514,#0a0a28)"><img src="images/posts/hollow-knight.jpg" alt="hollow knight" loading="lazy" onerror="this.closest('.featured-thumb').classList.remove('featured-thumb--photo')"><span class="featured-emoji featured-emoji--fallback">🔴</span>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+          <div class="featured-title">Among Us</div>
+          <div class="featured-studio">InnerSloth · 2018</div>
+          <div class="featured-desc">Free on mobile. Best with friends on voice chat. A social deduction game that teaches you more about trust and conformity in ninety seconds than most psychology textbooks manage in chapters.</div>
+          <a class="featured-cta" href="posts/among-us.html">Read the post →</a>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo stress deep" data-index="2" onclick="location.href='posts/journey.html'">
+        <div class="featured-thumb featured-thumb--photo" style="background:linear-gradient(135deg,#0e0a05,#2a1e0a)"><img src="images/posts/among-us.jpg" alt="among us" loading="lazy" onerror="this.closest('.featured-thumb').classList.remove('featured-thumb--photo')"><span class="featured-emoji featured-emoji--fallback">🏜️</span>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span><span class="mood-tag deep">DEEP DIVE</span></div>
+          <div class="featured-title">Journey</div>
+          <div class="featured-studio">thatgamecompany · 2012</div>
+          <div class="featured-desc">Two hours. No words. A random stranger will probably join you somewhere in the desert. The credits reveal who they were. By then, it's too late.</div>
+          <a class="featured-cta" href="posts/journey.html">Read the post →</a>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo deep stress" data-index="3" onclick="location.href='posts/red-dead-redemption-2.html'">
+        <div class="featured-thumb featured-thumb--photo" style="background:linear-gradient(135deg,#1a0e05,#3a200a)"><img src="images/posts/journey.jpg" alt="journey" loading="lazy" onerror="this.closest('.featured-thumb').classList.remove('featured-thumb--photo')"><span class="featured-emoji featured-emoji--fallback">🤠</span>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+          <div class="featured-title">Red Dead Redemption 2</div>
+          <div class="featured-studio">Rockstar Games · 2018</div>
+          <div class="featured-desc">The most patient game ever made. Arthur Morgan climbs onto his horse at his own pace regardless of how many buttons you press. Turn off fast travel. The horse animation is the lesson.</div>
+          <a class="featured-cta" href="posts/red-dead-redemption-2.html">Read the post →</a>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo deep" data-index="0" onclick="location.href='posts/minecraft.html'">
+        <div class="featured-thumb featured-thumb--photo" style="background:linear-gradient(135deg,#0a1a05,#1a3a08)"><img src="images/posts/red-dead-redemption-2.jpg" alt="red dead redemption 2" loading="lazy" onerror="this.closest('.featured-thumb').classList.remove('featured-thumb--photo')"><span class="featured-emoji featured-emoji--fallback">⛏️</span>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+          <div class="featured-title">Minecraft</div>
+          <div class="game-genre">Sandbox · Mojang</div>
+          <div class="featured-why">"Best-selling game in history. Also a live demonstration of why constraints make creativity possible — and why the blank canvas is the enemy of making things."</div>
+          <div class="featured-post-ref">From: <em>The Box Makes You Better</em></div>
+          <div class="game-platform">Available on: <a href="https://www.minecraft.net" target="_blank" rel="noopener noreferrer">Minecraft.net</a> · PC · Console · Mobile</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo deep" data-index="1" onclick="location.href='posts/disco-elysium.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#0a0514,#1e0a3a)">
+          <span class="featured-emoji">🎲</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+          <div class="featured-title">Disco Elysium</div>
+          <div class="game-genre">RPG · ZA/UM</div>
+          <div class="featured-why">"One of the most original games ever made. Also the best interactive model of decision fatigue and choice paralysis available — cheaper than therapy, takes longer."</div>
+          <div class="featured-post-ref">From: <em>All Your Thoughts at Once</em></div>
+          <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/632470" target="_blank" rel="noopener noreferrer">Steam</a> · PS4/PS5</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="together deep" data-index="1" onclick="location.href='posts/it-takes-two.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#1a0a2a,#3a1a5a)">
+          <span class="featured-emoji">🤝</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag deep">DEEP DIVE</span></div>
+          <div class="featured-title">It Takes Two</div>
+          <div class="game-genre">Co-op Adventure · Hazelight Studios</div>
+          <div class="featured-why">"Game of the Year 2021. One Friend's Pass covers two players. Gottman's research in playable form — communication is a skill, not a trait."</div>
+          <div class="featured-post-ref">From: <em>You Cannot Do This Alone</em></div>
+          <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/1426210" target="_blank" rel="noopener noreferrer">Steam</a> · PS4/PS5 · Xbox · Switch</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo deep" data-index="1" onclick="location.href='posts/edith-finch.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#0e0a1a,#1e1030)">
+          <span class="featured-emoji">🏚️</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+          <div class="featured-title">What Remains of Edith Finch</div>
+          <div class="game-genre">Narrative Adventure · Giant Sparrow</div>
+          <div class="featured-why">"Two hours. Frequently on sale. One of the most honest things ever made about grief — bring a quiet evening."</div>
+          <div class="featured-post-ref">From: <em>Every Room a Different Goodbye</em></div>
+          <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/501300" target="_blank" rel="noopener noreferrer">Steam</a> · PS4/PS5 · Xbox · Switch</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo deep" data-index="2" onclick="location.href='posts/knack.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#1a0e05,#4a2a10)">
+          <span class="featured-emoji">🧩</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+          <div class="featured-title">Knack</div>
+          <div class="game-genre">Action Platformer · Japan Studio / Sony</div>
+          <div class="featured-why">"A PS4 launch title that nobody talks about — but its core mechanic is quietly one of the best metaphors for identity formation ever put in a game."</div>
+          <div class="featured-post-ref">From: <em>Pulling Yourself Together</em></div>
+          <div class="game-platform">Available on: PS4 · PS5 (backwards compatible)</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo deep stress" data-index="1" onclick="location.href='posts/breath-of-the-wild.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#0a1a0e,#1a4a2a)">
+          <span class="featured-emoji">🗡️</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+          <div class="featured-title">The Legend of Zelda: Breath of the Wild</div>
+          <div class="game-genre">Open-World Action Adventure · Nintendo</div>
+          <div class="featured-why">"The game that proved freedom is the mechanic. No quest marker. Just a world. Go."</div>
+          <div class="featured-post-ref">From: <em>The Map Is Yours</em></div>
+          <div class="game-platform">Available on: Nintendo Switch · Nintendo Switch Lite · Wii U</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo deep adrenaline" data-index="1" onclick="location.href='posts/dark-souls.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#0d0d1a,#1a1030)">
+          <span class="featured-emoji">🔥</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+          <div class="featured-title">Dark Souls III</div>
+          <div class="game-genre">Action RPG · FromSoftware</div>
+          <div class="featured-why">"The best interactive argument for asking for help ever made. Die. Learn. Ask. Win."</div>
+          <div class="featured-post-ref">From: <em>Seek Strength… The Rest Will Follow</em></div>
+          <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/374320" target="_blank" rel="noopener noreferrer">Steam</a> · Xbox · PS4/PS5</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo deep adrenaline" data-index="1" onclick="location.href='posts/hades.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#1a0a0a,#4a0a0a)">
+          <span class="featured-emoji">⚡</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+          <div class="featured-title">Hades</div>
+          <div class="game-genre">Roguelike · Supergiant Games</div>
+          <div class="featured-why">"Possibly the best-designed game ever made. Teaches failure tolerance better than any book."</div>
+          <div class="featured-post-ref">From: <em>Failure Is the Mechanic</em></div>
+          <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/1145360" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4/PS5 · Xbox</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+      <div class="game-card-featured" data-moods="solo stress deep" data-index="2" onclick="location.href='posts/stardew-valley.html'">
+        <div class="featured-thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a4a1a)">
+          <span class="featured-emoji">🌱</span>
+          <div class="featured-badge"><span class="featured-badge-pixel">★ LATEST FEATURE</span></div>
+        </div>
+        <div class="featured-body">
+          <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span><span class="mood-tag deep">DEEP DIVE</span></div>
+          <div class="featured-title">Stardew Valley</div>
+          <div class="game-genre">Farming Sim · ConcernedApe</div>
+          <div class="featured-why">"One of the best value games ever made. Also a diagnostic tool for your work-life ratio."</div>
+          <div class="featured-post-ref">From: <em>Out of Office: Gone Farming</em></div>
+          <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/413150" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox · Mobile</div>
+          <span class="game-link" style="margin-top:16px;display:inline-block">Read the post</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-progress"><div class="carousel-progress-bar" id="carousel-progress-bar"></div></div>
+</div>
+<div class="games-divider" id="games-divider">
+  <div class="games-divider-line"></div>
+  <div class="games-divider-label">ALL GAMES</div>
+  <div class="games-divider-line"></div>
+</div>
+
+<!-- ALL GAMES GRID -->
+<div class="section" style="padding-top:0">
+  <div class="games-count" id="games-count">22 GAMES</div>
+  <div class="games-grid" id="games-grid">
+
+    <div class="game-card" data-moods="solo deep" onclick="location.href='posts/papers-please.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a1200,#3a2a00)">📋</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Papers, Please</div>
+        <div class="game-genre">Puzzle · 3909 LLC</div>
+        <div class="game-why">"A stamping simulator that turned into a moral reckoning. Play it slowly. Notice what you justify."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/239030" target="_blank" rel="noopener noreferrer">Steam</a> · iOS · PS Vita</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo stress deep" onclick="location.href='posts/katamari-damacy.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a003a,#5a00a0)">🌀</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Katamari Damacy</div>
+        <div class="game-genre">Action · Namco</div>
+        <div class="game-why">"Rolling up pencils, cows, and eventually islands until your brain goes blissfully silent. Peak flow state."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/848350" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo stress deep" onclick="location.href='posts/firewatch.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#2a1200,#7a3a00)">🔥</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Firewatch</div>
+        <div class="game-genre">Walking Sim · Campo Santo</div>
+        <div class="game-why">"Wyoming, a radio, and someone else's voice. Beautiful and honest about what escape actually gets you."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/383870" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo deep adrenaline" onclick="location.href='posts/inside.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a0a,#1a1a1a)">⬛</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Inside</div>
+        <div class="game-genre">Platformer · Playdead</div>
+        <div class="game-why">"Two hours of atmospheric dread with no dialogue and no explanation. It will stay with you longer than most games three times its length."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/304430" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox · iOS</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo deep adrenaline" onclick="location.href='posts/frostpunk.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0d1520,#1a2a40)">❄️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Frostpunk</div>
+        <div class="game-genre">Survival Strategy · 11 bit studios</div>
+        <div class="game-why">"A city builder that turns you into someone you wouldn't vote for. The most effective moral mirror in strategy gaming."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/323190" target="_blank" rel="noopener noreferrer">Steam</a> · PS4 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo deep stress" onclick="location.href='posts/night-in-the-woods.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0f0a1a,#2a1a4a)">🌙</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Night in the Woods</div>
+        <div class="game-genre">Adventure · Infinite Fall</div>
+        <div class="game-why">"About being 20 and lost and home, which feels wrong because you left. One of the most emotionally accurate games ever made."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/481510" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox · iOS</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo stress deep" onclick="location.href='posts/unpacking.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#2d1b3d,#5e3b7a)">📦</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Unpacking</div>
+        <div class="game-genre">Puzzle · Witch Beam</div>
+        <div class="game-why">"You don't control a character. You just put things away. Somehow this tells a complete life story, and it's one of the warmest games ever made."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/1135690" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox · Game Pass</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo deep" onclick="location.href='posts/outer-wilds.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a14,#1a1428)">🌌</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Outer Wilds</div>
+        <div class="game-genre">Adventure · Mobius Digital</div>
+        <div class="game-why">"A solar system that loops every 22 minutes and hides everything worth knowing. Go in completely blind."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/753640" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox · Game Pass</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo deep" onclick="location.href='posts/stanley-parable.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">🚪</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">The Stanley Parable</div>
+        <div class="game-genre">Walking Sim · Galactic Cafe</div>
+        <div class="game-why">"A game about following instructions in which not following instructions is also following instructions. Genuinely funny. Genuinely unsettling."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/221910" target="_blank" rel="noopener noreferrer">Steam</a></div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo stress" onclick="location.href='posts/animal-crossing.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0d2b0d,#2d6e2d)">🌿</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Animal Crossing: New Horizons</div>
+        <div class="game-genre">Life Sim · Nintendo</div>
+        <div class="game-why">"The game that sold 40 million copies during a pandemic. The one you built everything in, and then stopped playing, and can't explain why."</div>
+        <div class="game-platform">Available on: Switch</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo deep adrenaline" onclick="location.href='posts/tetris.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1a1a4a)">🟦</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Tetris</div>
+        <div class="game-genre">Puzzle · Various</div>
+        <div class="game-why">"The most played game in human history. Still teaching things about the brain that nothing else can demonstrate as cleanly."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/1003580" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · iOS · Android</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="together deep" onclick="location.href='posts/portal-2.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0d1f2d,#1a3a4a)">🌀</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Portal 2</div>
+        <div class="game-genre">Puzzle · Valve</div>
+        <div class="game-why">"The co-op mode is the best multiplayer experience in gaming. The theory of mind it requires explains why it's also uniquely frustrating with the wrong partner."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/620" target="_blank" rel="noopener noreferrer">Steam</a> · PS3 · Xbox 360</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+
+    <div class="game-card" data-moods="solo deep stress" onclick="location.href='posts/spiritfarer.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#050e1a,#0a1e3a)">⛵</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Spiritfarer</div>
+        <div class="game-genre">Management · Thunder Lotus Games</div>
+        <div class="game-why">"A cosy game about death. Play it when you have the emotional space for it. Play it with someone if you can."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/972660" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox · Game Pass</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo adrenaline deep" onclick="location.href='posts/celeste.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0520,#1a0a40)">🏔️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag adrenaline">ADRENALINE</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Celeste</div>
+        <div class="game-genre">Platformer · Maddy Thorson &amp; Noel Berry</div>
+        <div class="game-why">"One of the most honest games about anxiety ever made. Use assist mode if you want. The mountain doesn't care how you got to the top."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/504230" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep adrenaline" onclick="location.href='posts/hollow-knight.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#050508,#0e0a18)">🦋</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Hollow Knight</div>
+        <div class="game-genre">Metroidvania · Team Cherry</div>
+        <div class="game-why">"Forty hours in a hand-drawn underground kingdom. One of the best value games ever made. Do the optional content if you want. You probably will."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/367520" target="_blank" rel="noopener noreferrer">Steam</a> · Nintendo Switch · PS4 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="together stress" onclick="location.href='posts/among-us.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#050514,#0a0a28)">🔴</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Among Us</div>
+        <div class="game-genre">Social Deduction · InnerSloth</div>
+        <div class="game-why">"Free on mobile. Best with friends on voice chat who take it slightly too seriously. The psychology of trust happens fastest when the stakes feel real."</div>
+        <div class="game-platform">Available on: <a href="https://www.innersloth.com/games/among-us/" target="_blank" rel="noopener noreferrer">PC</a> · Mobile (Free) · Console</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo stress deep" onclick="location.href='posts/journey.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0e0a05,#2a1e0a)">🏜️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Journey</div>
+        <div class="game-genre">Adventure · thatgamecompany</div>
+        <div class="game-why">"Two hours. Go in without reading about it. Let the multiplayer surprise you. This is one of the few games that changes how you think about connection."</div>
+        <div class="game-platform">Available on: <a href="https://thatgamecompany.com/journey/" target="_blank" rel="noopener noreferrer">PS4/PS5</a> · PC (Epic Games)</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep stress" onclick="location.href='posts/red-dead-redemption-2.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a0e05,#3a200a)">🤠</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Red Dead Redemption 2</div>
+        <div class="game-genre">Open World · Rockstar Games</div>
+        <div class="game-why">"Play it without fast travel. The horse animation is not a bug. One of the most ambitious games ever made — and a sixty-hour meditation on patience."</div>
+        <div class="game-platform">Available on: <a href="https://www.rockstargames.com/reddeadredemption2" target="_blank" rel="noopener noreferrer">PC</a> · PS4/PS5 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep stress" onclick="location.href='posts/minecraft.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a1a05,#1a3a08)">⛏️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Minecraft</div>
+        <div class="game-genre">Sandbox · Mojang</div>
+        <div class="game-why">"The best-selling game ever made costs less than a pizza. Start in Survival mode. Build the box. Watch what happens when you impose a constraint on yourself."</div>
+        <div class="game-platform">Available on: <a href="https://www.minecraft.net" target="_blank" rel="noopener noreferrer">Minecraft.net</a> · PC · Console · Mobile</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep" onclick="location.href='posts/disco-elysium.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0514,#1e0a3a)">🎲</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Disco Elysium</div>
+        <div class="game-genre">RPG · ZA/UM</div>
+        <div class="game-why">"Best-written game in the medium. A ruined detective reconstructs his identity through a thousand choices, each one argued over by the thirty voices in his head."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/632470" target="_blank" rel="noopener noreferrer">Steam</a> · PS4/PS5</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="together deep" onclick="location.href='posts/it-takes-two.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a0a2a,#3a1a5a)">🤝</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">It Takes Two</div>
+        <div class="game-genre">Co-op Adventure · Hazelight Studios</div>
+        <div class="game-why">"The best argument for co-op gaming as relationship maintenance. One purchase, two players, no excuses."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/1426210" target="_blank" rel="noopener noreferrer">Steam</a> · PS4/PS5 · Xbox · Switch</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep" onclick="location.href='posts/edith-finch.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0e0a1a,#1e1030)">🏚️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">What Remains of Edith Finch</div>
+        <div class="game-genre">Narrative Adventure · Giant Sparrow</div>
+        <div class="game-why">"Two hours. Grief without a stage model. One of the best things ever made in the medium. Do not look it up first."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/501300" target="_blank" rel="noopener noreferrer">Steam</a> · PS4/PS5 · Xbox · Switch</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep" onclick="location.href='posts/knack.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a0e05,#4a2a10)">🧩</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">Knack</div>
+        <div class="game-genre">Action Platformer · Japan Studio / Sony</div>
+        <div class="game-why">"Unfairly dismissed at launch. The relic-absorption mechanic is a better model for identity formation than most psychology textbooks."</div>
+        <div class="game-platform">Available on: PS4 · PS5 (backwards compatible)</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep stress" onclick="location.href='posts/breath-of-the-wild.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a1a0e,#1a4a2a)">🗡️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">The Legend of Zelda: Breath of the Wild</div>
+        <div class="game-genre">Open-World Adventure · Nintendo</div>
+        <div class="game-why">"One of the greatest games ever made. No quest marker — just a world. Your brain will thank you."</div>
+        <div class="game-platform">Available on: Nintendo Switch · Wii U</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="together short stress" onclick="location.href='posts/moving-out.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a2a3a,#2e5c7a)">📦</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag short">SHORT & SWEET</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Moving Out</div>
+        <div class="game-genre">Co-op Simulation · DevM Games</div>
+        <div class="game-why">"Moving is terrible. This makes it genuinely hilarious. Best couch co-op for two people."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/996770" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="together short adrenaline" onclick="location.href='posts/overcooked.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a0a00,#5c2500)">🍳</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag short">SHORT & SWEET</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Overcooked 2</div>
+        <div class="game-genre">Co-op Cooking · Ghost Town Games</div>
+        <div class="game-why">"A relationship test disguised as a cooking game. Science says it actually bonds you."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/728880" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo short stress" onclick="location.href='posts/princess-peach.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#3a0a2a,#b02060)">👑</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag short">SHORT & SWEET</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Princess Peach: Showtime!</div>
+        <div class="game-genre">Platformer · Nintendo</div>
+        <div class="game-why">"Forty years of quiet character development hiding in plain sight."</div>
+        <div class="game-platform">Available on: Nintendo Switch</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep together" onclick="location.href='posts/world-of-warcraft.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1a0a2e)">⚔️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag together">PLAY TOGETHER</span></div>
+        <div class="game-title">World of Warcraft</div>
+        <div class="game-genre">MMORPG · Blizzard Entertainment</div>
+        <div class="game-why">"Engineered for addiction — dopamine loops, sunk cost, the works. Still worth it in moderation."</div>
+        <div class="game-platform">Available on: <a href="https://worldofwarcraft.blizzard.com" target="_blank" rel="noopener noreferrer">Battle.net</a> · Free to level 20</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep adrenaline" onclick="location.href='posts/last-of-us.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a3a1a)">🍄</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">The Last of Us Part I & II</div>
+        <div class="game-genre">Action-Adventure · Naughty Dog</div>
+        <div class="game-why">"The most morally complex game ever made. Joel's final choice will follow you."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/1888930" target="_blank" rel="noopener noreferrer">Steam</a> · PS4/PS5</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo stress deep" onclick="location.href='posts/the-sims.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#003300,#006600)">🏠</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span><span class="mood-tag deep">DEEP DIVE</span></div>
+        <div class="game-title">The Sims 3</div>
+        <div class="game-genre">Life Simulation · Maxis / EA</div>
+        <div class="game-why">"Turns out it's just a simulation of your thirties. The dirty dishes don't get picked up there either."</div>
+        <div class="game-platform">Available on: <a href="https://www.ea.com/games/the-sims/the-sims-3" target="_blank" rel="noopener noreferrer">EA App</a> · PC/Mac</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo short adrenaline" onclick="location.href='posts/crash-bandicoot.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a0a00,#6e3a00)">🟠</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag short">SHORT & SWEET</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Crash Bandicoot N. Sane Trilogy</div>
+        <div class="game-genre">Platformer · Vicarious Visions</div>
+        <div class="game-why">"Three games that will reveal your personality flaws in approximately twenty minutes."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/731490" target="_blank" rel="noopener noreferrer">Steam</a> · PS4 · Xbox · Switch</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo short stress" onclick="location.href='posts/pokemon.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a0000,#8b0000)">⚡</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag short">SHORT & SWEET</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Pokémon Red</div>
+        <div class="game-genre">RPG · Game Freak / Nintendo</div>
+        <div class="game-why">"The original cause of a significant percentage of our collective childhood existential crises."</div>
+        <div class="game-platform">Available on: Game Boy · Nintendo Switch Online</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep adrenaline" onclick="location.href='posts/dark-souls.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0d0d1a,#1a1030)">🔥</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Dark Souls III</div>
+        <div class="game-genre">Action RPG · FromSoftware</div>
+        <div class="game-why">"The best interactive argument for asking for help ever made. Die. Learn. Ask. Win."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/374320" target="_blank" rel="noopener noreferrer">Steam</a> · Xbox · PS4/PS5</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep adrenaline" onclick="location.href='posts/hades.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#1a0a0a,#4a0a0a)">⚡</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Hades</div>
+        <div class="game-genre">Roguelike · Supergiant Games</div>
+        <div class="game-why">"Possibly the best-designed game ever made. Teaches failure tolerance better than any book."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/1145360" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4/PS5 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo stress" onclick="location.href='posts/stardew-valley.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a4a1a)">🌱</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Stardew Valley</div>
+        <div class="game-genre">Farming Sim · ConcernedApe</div>
+        <div class="game-why">"One of the best value games ever made. Also a diagnostic tool for your work-life ratio."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/413150" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4 · Xbox · Mobile</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep stress" onclick="location.href='posts/skyrim.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3a)">🐉</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">The Elder Scrolls V: Skyrim</div>
+        <div class="game-genre">Action RPG · Bethesda Game Studios</div>
+        <div class="game-why">"Still extraordinary. The skill tree is a better model for mastery than most self-help books."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/489830" target="_blank" rel="noopener noreferrer">Steam</a> · PS4/PS5 · Xbox · Switch</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo deep adrenaline" onclick="location.href='posts/fallout-3.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a00,#2a2a00)">☢️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag deep">DEEP DIVE</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Fallout 3</div>
+        <div class="game-genre">Action RPG · Bethesda Game Studios</div>
+        <div class="game-why">"Play it. Make every choice. Then notice who you chose to be. It'll tell you something."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/22300" target="_blank" rel="noopener noreferrer">Steam</a> · PC · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo together adrenaline" onclick="location.href='posts/amnesia.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a0a,#1a0a1a)">👁️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Amnesia: The Dark Descent</div>
+        <div class="game-genre">Survival Horror · Frictional Games</div>
+        <div class="game-why">"The best excuse to call a friend you haven't seen in a while. Bring snacks. Don't play alone."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/57300" target="_blank" rel="noopener noreferrer">Steam</a> · PS4 · Xbox · Switch</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="solo short stress" onclick="location.href='posts/undertale.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1a0a3a)">❤️</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag solo">SOLO NIGHT</span><span class="mood-tag short">SHORT & SWEET</span><span class="mood-tag stress">STRESS RELIEF</span></div>
+        <div class="game-title">Undertale</div>
+        <div class="game-genre">RPG · Toby Fox</div>
+        <div class="game-why">"Under €10. Don't look anything up. Do the Pacifist route first. You'll understand."</div>
+        <div class="game-platform">Available on: <a href="https://store.steampowered.com/app/391540" target="_blank" rel="noopener noreferrer">Steam</a> · Switch · PS4</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="game-card" data-moods="together short adrenaline" onclick="location.href='posts/rocket-league.html'">
+      <div class="game-thumb" style="background:linear-gradient(135deg,#0a0a1a,#1a1a4a)">🚗</div>
+      <div class="game-body">
+        <div class="game-card-moods"><span class="mood-tag together">PLAY TOGETHER</span><span class="mood-tag short">SHORT & SWEET</span><span class="mood-tag adrenaline">ADRENALINE</span></div>
+        <div class="game-title">Rocket League</div>
+        <div class="game-genre">Sports · Psyonix · Free to Play</div>
+        <div class="game-why">"Free, infinitely deep, and will immediately reveal exactly how accurate your self-assessment is."</div>
+        <div class="game-platform">Available on: <a href="https://www.rocketleague.com" target="_blank" rel="noopener noreferrer">Epic Games</a> · Free · Switch · PS4/PS5 · Xbox</div>
+        <span class="game-link">Read the post</span>
+      </div>
+    </div>
+    <div class="games-none" id="games-none">No games in this mood yet — <a href="blog.html" style="color:var(--accent)">read the blog →</a></div>
+  </div>
+</div>
+
+<!-- SUGGEST A GAME -->
+<div style="background:var(--warm);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div style="max-width:680px;margin:0 auto;padding:56px 32px;text-align:center">
+    <p style="font-family:var(--font-px);font-size:0.38rem;color:var(--accent);letter-spacing:2px;margin-bottom:16px">GOT A SUGGESTION?</p>
+    <h2 style="font-family:var(--font-serif);font-size:1.8rem;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.2">Think a game belongs here?</h2>
+    <p style="font-size:0.95rem;color:var(--ink2);line-height:1.7;margin-bottom:28px">
+      If there's a game that changed how you think about something — drop us a message. 
+      Every game on this page started as a conversation.
+    </p>
+    <a href="mailto:mao@pixelweirdo.com" style="display:inline-block;background:var(--accent);color:#fff;font-size:0.875rem;font-weight:500;padding:13px 28px;border:2px solid var(--accent);text-decoration:none;transition:all .2s" onmouseover="this.style.background='transparent';this.style.color='var(--accent)'" onmouseout="this.style.background='var(--accent)';this.style.color='#fff'">Send a suggestion →</a>
+  </div>
+</div>
+
+<script src="js/footer.js"></script>
+
+<script>
+// ── Carousel ──────────────────────────────────────────────
+let carouselIndex = 0;
+const carouselCards = () => document.querySelectorAll('#carousel-track .game-card-featured');
+
+function carouselVisible() {
+  return Array.from(carouselCards()).filter(c => c.style.display !== 'none');
+}
+
+function buildDots() {
+  const dotsEl = document.getElementById('carousel-dots');
+  if (!dotsEl) return;
+  const visible = carouselVisible();
+  dotsEl.innerHTML = visible.map((_, i) =>
+    `<div class="carousel-dot${i === 0 ? ' active' : ''}" onclick="goToSlide(${i})"></div>`
+  ).join('');
+}
+
+function goToSlide(idx) {
+  const visible = carouselVisible();
+  if (!visible.length) return;
+  carouselIndex = ((idx % visible.length) + visible.length) % visible.length;
+  const track = document.getElementById('carousel-track');
+  // Use 100% * index so it works regardless of DOM rendering context
+  if (track) track.style.transform = 'translateX(-' + (carouselIndex * 100) + '%)';
+  // Update dots
+  document.querySelectorAll('.carousel-dot').forEach(function(d, i) {
+    d.classList.toggle('active', i === carouselIndex);
+  });
+  // Update progress bar
+  const pct = visible.length > 1 ? (carouselIndex / (visible.length - 1)) * 100 : 100;
+  const bar = document.getElementById('carousel-progress-bar');
+  if (bar) bar.style.width = pct + '%';
+}
+
+function carouselNext() { goToSlide(carouselIndex + 1); }
+function carouselPrev() { goToSlide(carouselIndex - 1); }
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('carousel-next')?.addEventListener('click', carouselNext);
+  document.getElementById('carousel-prev')?.addEventListener('click', carouselPrev);
+
+  // Touch/swipe support
+  const track = document.getElementById('carousel-track');
+  let startX = 0;
+  track?.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+  track?.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? carouselNext() : carouselPrev();
+  });
+
+  buildDots();
+  goToSlide(0);
+});
+
+// ── Filter ──────────────────────────────────────────────────
+function filterGames(mood) {
+  // Filter carousel cards
+  const featured = Array.from(carouselCards());
+  let visibleFeatured = 0;
+  featured.forEach(card => {
+    const show = mood === 'all' || (card.dataset.moods || '').includes(mood);
+    card.style.display = show ? '' : 'none';
+    if (show) visibleFeatured++;
+  });
+
+  // Reset carousel to first visible
+  carouselIndex = 0;
+  buildDots();
+  const track = document.getElementById('carousel-track');
+  if (track) track.style.transform = 'translateX(0)';
+  const bar = document.getElementById('carousel-progress-bar');
+  if (bar) bar.style.width = visibleFeatured > 0 ? '0%' : '0%';
+
+  // Hide featured section if nothing matches
+  const featSection = document.getElementById('featured-section');
+  const divider     = document.getElementById('games-divider');
+  if (featSection) featSection.style.display = visibleFeatured === 0 ? 'none' : '';
+  if (divider)     divider.style.display     = visibleFeatured === 0 ? 'none' : '';
+
+  // Filter regular cards
+  const regular = document.querySelectorAll('#games-grid .game-card');
+  let visibleRegular = 0;
+  regular.forEach(card => {
+    const show = mood === 'all' || (card.dataset.moods || '').includes(mood);
+    card.style.display = show ? '' : 'none';
+    if (show) visibleRegular++;
+  });
+
+  const countEl = document.getElementById('games-count');
+  const noneEl  = document.getElementById('games-none');
+  if (countEl) countEl.textContent = visibleRegular + (visibleRegular === 1 ? ' GAME' : ' GAMES');
+  if (noneEl)  noneEl.style.display = (visibleFeatured + visibleRegular) === 0 ? 'block' : 'none';
+  
+  goToSlide(0);
+}
+</script>
+</body>
+</html>
