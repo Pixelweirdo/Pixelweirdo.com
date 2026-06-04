@@ -28,6 +28,7 @@
     '        <div class="footer-col-title">SUPPORT</div>' +
     '        <a href="https://www.patreon.com/c/PixelWeirdo" target="_blank" rel="noopener noreferrer">Patreon ♥</a>' +
     '        <a href="' + depth + 'about.html">Affiliate Disclosure</a>' +
+    '        <a href="' + depth + 'privacy.html">Privacy Policy</a>' +  
     '        <a href="mailto:mao@pixelweirdo.com">Contact</a>' +
     '      </div>' +
     '    </div>' +
