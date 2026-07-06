@@ -81,9 +81,6 @@ function filterHome(cat, btn) {
 }
 
 // ── COMMENT SYSTEM (localStorage) ────────────────────────────
-// Persists comments in the browser via localStorage.
-// Key: "pw_comments:{postId}"   Value: JSON array of comment objects
-
 var DB = (function () {
   function key(postId) {
     return 'pw_comments:' + postId;
@@ -197,3 +194,14 @@ document.addEventListener('DOMContentLoaded', function () {
     loadComments(postId);
   });
 });
+
+// ── AdSense loader ────────────────────────────────────────────
+// Injects the AdSense script if not already present on the page
+(function () {
+  if (document.querySelector('script[src*="adsbygoogle"]')) return;
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8818629664606753';
+  s.crossOrigin = 'anonymous';
+  document.head.appendChild(s);
+}());
