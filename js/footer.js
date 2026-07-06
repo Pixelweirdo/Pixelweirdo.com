@@ -41,7 +41,32 @@
   );
 }());
 
-// Ad injection for post pages only
+// Replace ad placeholders with real AdSense units
+(function () {
+  function injectAds() {
+    var placeholders = document.querySelectorAll('.ad-placeholder');
+    placeholders.forEach(function (placeholder) {
+      var zone = placeholder.closest('.ad-zone') || placeholder.parentNode;
+      var ins = document.createElement('ins');
+      ins.className = 'adsbygoogle';
+      ins.style.display = 'block';
+      ins.setAttribute('data-ad-client', 'ca-pub-8818629664606753');
+      ins.setAttribute('data-ad-slot', '9387210479');
+      ins.setAttribute('data-ad-format', 'auto');
+      ins.setAttribute('data-full-width-responsive', 'true');
+      placeholder.parentNode.replaceChild(ins, placeholder);
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectAds);
+  } else {
+    injectAds();
+  }
+}());
+
+// Ad injection for post pages only (after intro paragraph)
 (function () {
   if (window.location.pathname.indexOf('/posts/') === -1) return;
   var postBody = document.querySelector('.post-body');
