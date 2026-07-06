@@ -28,7 +28,7 @@
     '        <div class="footer-col-title">SUPPORT</div>' +
     '        <a href="https://www.patreon.com/c/PixelWeirdo" target="_blank" rel="noopener noreferrer">Patreon ♥</a>' +
     '        <a href="' + depth + 'about.html">Affiliate Disclosure</a>' +
-    '        <a href="' + depth + 'privacy.html">Privacy Policy</a>' +  
+    '        <a href="' + depth + 'privacy.html">Privacy Policy</a>' +
     '        <a href="mailto:mao@pixelweirdo.com">Contact</a>' +
     '      </div>' +
     '    </div>' +
@@ -39,4 +39,18 @@
     '  </div>' +
     '</footer>'
   );
+}());
+
+// Ad injection for post pages only
+(function () {
+  if (window.location.pathname.indexOf('/posts/') === -1) return;
+  var postBody = document.querySelector('.post-body');
+  if (!postBody) return;
+  var paragraphs = postBody.querySelectorAll('p');
+  if (paragraphs.length < 2) return;
+  var adDiv = document.createElement('div');
+  adDiv.style.margin = '32px 0';
+  adDiv.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8818629664606753" data-ad-slot="1079556604" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+  paragraphs[1].parentNode.insertBefore(adDiv, paragraphs[1].nextSibling);
+  (window.adsbygoogle = window.adsbygoogle || []).push({});
 }());
