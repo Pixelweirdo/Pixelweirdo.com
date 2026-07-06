@@ -216,11 +216,14 @@
   <!-- AD ZONE -->
   <div class="ad-zone">
     <div class="ad-label">Advertisement</div>
-    <div class="ad-placeholder">
-      <span>[ Google AdSense — Replace this block with your ad unit code ]</span>
-    </div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-8818629664606753"
+         data-ad-slot="9387210479"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
-
 
   <!-- START HERE CAROUSEL -->
   <section class="start-here-section">
@@ -336,7 +339,6 @@
     </div>
   </div>
 
-  <!-- GAME RECOMMENDATIONS -->
   <!-- PIXEL JUMPER TEASER STRIP -->
   <section class="pj-strip">
     <canvas id="pj-strip-canvas" width="120" height="150" aria-hidden="true"></canvas>
@@ -355,75 +357,53 @@
     var t = 0;
 
     function drawChar(y){
-      // NES-style sprite — chunky blocks, 4px pixel unit, ~32x40 character
       var x=38, p=4;
-
-      // Hair — dark brown, flat top
       ctx.fillStyle='#3a2000';
-      ctx.fillRect(x,    y,    p*5, p);    // hair top
-      ctx.fillRect(x,    y+p,  p,   p*2);  // left sideburn
-      ctx.fillRect(x+p*4,y+p,  p,   p);    // right sideburn
-
-      // Face — skin tone
+      ctx.fillRect(x,    y,    p*5, p);
+      ctx.fillRect(x,    y+p,  p,   p*2);
+      ctx.fillRect(x+p*4,y+p,  p,   p);
       ctx.fillStyle='#f5c08a';
-      ctx.fillRect(x+p,  y+p,  p*3, p*3);  // face
-
-      // Glasses — two solid dark squares, white dot each
+      ctx.fillRect(x+p,  y+p,  p*3, p*3);
       ctx.fillStyle='#111133';
-      ctx.fillRect(x+p,  y+p*2, p,   p);   // left lens
-      ctx.fillRect(x+p*3,y+p*2, p,   p);   // right lens
+      ctx.fillRect(x+p,  y+p*2, p,   p);
+      ctx.fillRect(x+p*3,y+p*2, p,   p);
       ctx.fillStyle='#ccccff';
-      ctx.fillRect(x+p,  y+p*2, p/2, p/2); // left glint
-      ctx.fillRect(x+p*3,y+p*2, p/2, p/2); // right glint
-
-      // Hoodie — solid purple body
+      ctx.fillRect(x+p,  y+p*2, p/2, p/2);
+      ctx.fillRect(x+p*3,y+p*2, p/2, p/2);
       ctx.fillStyle='#7c4dbe';
-      ctx.fillRect(x,    y+p*4, p*5, p*4); // torso
-      ctx.fillRect(x-p,  y+p*4, p,   p*3); // left arm
-      ctx.fillRect(x+p*5,y+p*4, p,   p*3); // right arm
-
-      // Pocket — one darker block
+      ctx.fillRect(x,    y+p*4, p*5, p*4);
+      ctx.fillRect(x-p,  y+p*4, p,   p*3);
+      ctx.fillRect(x+p*5,y+p*4, p,   p*3);
       ctx.fillStyle='#5a32a0';
       ctx.fillRect(x+p,  y+p*6, p*3, p*2);
-
-      // Trousers — dark navy, two legs
       ctx.fillStyle='#1e1a44';
-      ctx.fillRect(x,    y+p*8, p*2, p*3); // left leg
-      ctx.fillRect(x+p*3,y+p*8, p*2, p*3); // right leg
-
-      // Shoes — amber, slightly wider than legs
+      ctx.fillRect(x,    y+p*8, p*2, p*3);
+      ctx.fillRect(x+p*3,y+p*8, p*2, p*3);
       ctx.fillStyle='#f0ab5a';
-      ctx.fillRect(x-p/2,y+p*11,p*3, p);   // left shoe
-      ctx.fillRect(x+p*3-p/2,y+p*11,p*3,p);// right shoe
+      ctx.fillRect(x-p/2,y+p*11,p*3, p);
+      ctx.fillRect(x+p*3-p/2,y+p*11,p*3,p);
     }
 
     function loop(){
-      t += 0.018; // very slow idle
-
-      // Gentle sine bob — only 4px of movement total
+      t += 0.018;
       var bob = Math.sin(t) * 3;
       var charY = 44 + bob;
-
       ctx.clearRect(0,0,120,150);
-
-      // Soft shadow — shrinks slightly as character rises
       ctx.fillStyle='rgba(124,77,190,0.25)';
       var shadowScale = 1 - (Math.abs(bob) / 20);
       ctx.beginPath();
       ctx.ellipse(60, 144, 20 * shadowScale, 4 * shadowScale, 0, 0, Math.PI*2);
       ctx.fill();
-
       drawChar(charY);
       requestAnimationFrame(loop);
     }
     requestAnimationFrame(loop);
-  // Update level count from header LEVELS array
-  document.addEventListener("DOMContentLoaded",function(){
-    if(window.PWLEVELS){
-      var el=document.getElementById("strip-level-count");
-      if(el) el.textContent=window.PWLEVELS;
-    }
-  });
+    document.addEventListener("DOMContentLoaded",function(){
+      if(window.PWLEVELS){
+        var el=document.getElementById("strip-level-count");
+        if(el) el.textContent=window.PWLEVELS;
+      }
+    });
   }());
   </script>
 
@@ -509,7 +489,6 @@
   </section>
 
   <!-- PATREON -->
-
   <section class="patreon-section">
     <div class="patreon-inner">
       <div class="patreon-eyebrow">BECOME A PATRON</div>
@@ -597,7 +576,6 @@
       var next = document.getElementById('sh-next');
       if (prev) prev.addEventListener('click', function() { go(idx - 1); });
       if (next) next.addEventListener('click', function() { go(idx + 1); });
-      // Touch support
       var wrap = document.querySelector('.sh-track-wrap');
       var startX = 0;
       if (wrap) {
