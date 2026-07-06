@@ -41,41 +41,35 @@
   );
 }());
 
-// Replace ad placeholders with real AdSense units
-(function () {
-  function injectAds() {
-    var placeholders = document.querySelectorAll('.ad-placeholder');
-    placeholders.forEach(function (placeholder) {
-      var zone = placeholder.closest('.ad-zone') || placeholder.parentNode;
-      var ins = document.createElement('ins');
-      ins.className = 'adsbygoogle';
-      ins.style.display = 'block';
-      ins.setAttribute('data-ad-client', 'ca-pub-8818629664606753');
-      ins.setAttribute('data-ad-slot', '9387210479');
-      ins.setAttribute('data-ad-format', 'auto');
-      ins.setAttribute('data-full-width-responsive', 'true');
-      placeholder.parentNode.replaceChild(ins, placeholder);
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    });
-  }
+// Replace all .ad-placeholder elements with real AdSense units
+// Uses setTimeout to ensure DOM is fully ready after document.write
+setTimeout(function () {
+  var placeholders = document.querySelectorAll('.ad-placeholder');
+  placeholders.forEach(function (placeholder) {
+    var ins = document.createElement('ins');
+    ins.className = 'adsbygoogle';
+    ins.style.display = 'block';
+    ins.setAttribute('data-ad-client', 'ca-pub-8818629664606753');
+    ins.setAttribute('data-ad-slot', '9387210479');
+    ins.setAttribute('data-ad-format', 'auto');
+    ins.setAttribute('data-full-width-responsive', 'true');
+    placeholder.parentNode.replaceChild(ins, placeholder);
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  });
+}, 0);
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectAds);
-  } else {
-    injectAds();
-  }
-}());
-
-// Ad injection for post pages only (after intro paragraph)
-(function () {
+// Ad injection for post pages only (after second paragraph)
+setTimeout(function () {
   if (window.location.pathname.indexOf('/posts/') === -1) return;
   var postBody = document.querySelector('.post-body');
   if (!postBody) return;
   var paragraphs = postBody.querySelectorAll('p');
   if (paragraphs.length < 2) return;
+  // Don't add if one already exists nearby
+  if (postBody.querySelector('.adsbygoogle')) return;
   var adDiv = document.createElement('div');
   adDiv.style.margin = '32px 0';
   adDiv.innerHTML = '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8818629664606753" data-ad-slot="1079556604" data-ad-format="auto" data-full-width-responsive="true"></ins>';
   paragraphs[1].parentNode.insertBefore(adDiv, paragraphs[1].nextSibling);
   (window.adsbygoogle = window.adsbygoogle || []).push({});
-}());
+}, 0);
